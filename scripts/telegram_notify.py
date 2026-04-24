@@ -56,6 +56,22 @@ CATEGORY_ICON = {
 }
 
 
+def _filename_block(items: list[dict], limit: int = 8) -> list[str]:
+    lines = ["<i>檔名：</i>"]
+    for it in items[:limit]:
+        fn = it.get("filename")
+        if not fn:
+            continue
+        url = it.get("product_url")
+        if url:
+            lines.append(f"• <a href=\"{url}\">{fn}</a>")
+        else:
+            lines.append(f"• {fn}")
+    if len(items) > limit:
+        lines.append(f"…（還有 {len(items) - limit} 張）")
+    return lines
+
+
 def build_report(date_str: str, total: int, buckets: dict[str, list[dict]], summaries: dict[str, str]) -> str:
     lines = [f"📸 <b>{date_str} 截圖整理</b>（共 {total} 張）", ""]
 
@@ -76,5 +92,6 @@ def build_report(date_str: str, total: int, buckets: dict[str, list[dict]], summ
             else:
                 for it in items[:5]:
                     lines.append(f"• {it.get('caption', '')}")
+            lines.extend(_filename_block(items))
         lines.append("")
     return "\n".join(lines).rstrip()

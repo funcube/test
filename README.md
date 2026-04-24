@@ -100,11 +100,36 @@ python scripts/main.py              # 實際推 Telegram
 
 ---
 
+## 檔案自動改名
+
+分類完成後，下載下來的圖片會依內容改名為 `YYYY-MM-DD-類別-摘要.jpg`，例如：
+
+```
+2026-04-24-車宿-露營車水塔保養.jpg
+2026-04-24-AI新知-Claude_4_7發表.jpg
+2026-04-24-記錄資料-長榮機票電子憑.jpg
+```
+
+- 日期取自 Google Photos 的 `creationTime`
+- 摘要由 Gemini Flash 產出，最多 10 字
+- 類別最多 8 字
+- 非法檔名字元（`<>:"/\|?*`）會被濾掉
+- 重複檔名會自動加 `-2`、`-3` 後綴
+
+改名後的檔案清單會：
+1. 出現在 Telegram 報告每類別的「檔名：」區（附 Google Photos 連結）
+2. 寫進 [`state/last_batch.json`](state/last_batch.json) 方便追溯
+
+### 想永久保留改名後的檔案
+
+設定環境變數 `ARCHIVE_DIR=/path/to/folder`（本機跑時），會把改名後的副本複製到該目錄。GitHub Actions 上因為 runner 的檔案系統是拋棄式的，所以沒意義；要雲端歸檔請用 Google Drive 或其他持久化儲存（可自行擴充 `rename_and_archive` 的目的地）。
+
 ## 調整分類邏輯
 
 - 分類規則在 [`prompts/classify_prompt.txt`](prompts/classify_prompt.txt)
 - 摘要風格在 [`prompts/summarize_prompt.txt`](prompts/summarize_prompt.txt)
 - 哪些類別要深度摘要 → 改 [`scripts/main.py`](scripts/main.py) 的 `SUMMARIZE_CATEGORIES`
+- 檔名長度上限 → 改 [`scripts/rename.py`](scripts/rename.py) 的 `MAX_CAPTION_CHARS` / `MAX_CATEGORY_CHARS`
 
 ---
 

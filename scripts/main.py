@@ -1,4 +1,4 @@
-"""Orchestrate: fetch → classify → summarize → notify → persist state."""
+"""Orchestrate: fetch → classify → rename → summarize → notify → persist state."""
 from __future__ import annotations
 
 import argparse
@@ -13,11 +13,13 @@ from dotenv import load_dotenv
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 import classify
 import google_photos
+import rename as rename_mod
 import summarize
 import telegram_notify
 
 ROOT = pathlib.Path(__file__).parent.parent
 STATE_FILE = ROOT / "state" / "processed.json"
+MANIFEST_FILE = ROOT / "state" / "last_batch.json"
 TMP_DIR = ROOT / "tmp_shots"
 SUMMARIZE_CATEGORIES = {"車宿", "AI新知", "記錄資料"}
 MAX_PROCESSED_IDS = 5000
@@ -31,6 +33,15 @@ def save_state(state: dict) -> None:
     STATE_FILE.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
+def save_manifest(entries: list[dict]) -> None:
+    payload = {
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "count": len(entries),
+        "items": entries,
+    }
+    MANIFEST_FILE.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true", help="Skip Telegram push, print to stdout instead")
@@ -38,6 +49,8 @@ def main() -> int:
 
     load_dotenv()
     lookback = int(os.environ.get("LOOKBACK_DAYS", "2"))
+    archive_env = os.environ.get("ARCHIVE_DIR", "").strip()
+    archive_dir = pathlib.Path(archive_env).expanduser() if archive_env else None
 
     state = load_state()
     processed: set[str] = set(state.get("processed_ids", []))
@@ -58,15 +71,30 @@ def main() -> int:
         return 0
 
     TMP_DIR.mkdir(parents=True, exist_ok=True)
+    items_map: dict[str, dict] = {}
     paths: list[pathlib.Path] = []
     for it in items:
         try:
-            paths.append(google_photos.download_item(it, TMP_DIR))
+            path = google_photos.download_item(it, TMP_DIR)
+            paths.append(path)
+            items_map[it["id"]] = {"item": it, "path": path}
         except Exception as e:
             print(f"[download] skip {it['id']}: {e}")
 
     print(f"[classify] running Gemini on {len(paths)} image(s)...")
     results = classify.classify_all(paths)
+
+    print(f"[rename] renaming {len(results)} file(s){' + archiving to ' + str(archive_dir) if archive_dir else ''}...")
+    for r in results:
+        meta = items_map.get(r["id"])
+        if not meta:
+            continue
+        creation_time = meta["item"].get("mediaMetadata", {}).get("creationTime") or datetime.now(timezone.utc).isoformat()
+        new_name = rename_mod.compute_name(creation_time, r["category"], r["caption"])
+        new_path = rename_mod.rename_and_archive(meta["path"], new_name, archive_dir)
+        r["path"] = str(new_path)
+        r["filename"] = new_path.name
+        r["product_url"] = meta["item"].get("productUrl", "")
 
     buckets: dict[str, list[dict]] = {}
     for r in results:
@@ -95,6 +123,9 @@ def main() -> int:
     else:
         telegram_notify.send(report)
         print("[notify] sent to Telegram")
+
+    save_manifest(results)
+    print(f"[manifest] saved to {MANIFEST_FILE}")
 
     new_ids = [r["id"] for r in results]
     all_ids = list(processed) + new_ids
