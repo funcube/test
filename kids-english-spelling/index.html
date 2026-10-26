@@ -217,6 +217,13 @@
 @media(max-width:610px){.new-games{grid-template-columns:1fr;gap:9px}.new-game-card{min-height:132px;padding:13px 16px}.new-game-icon{font-size:30px}.new-game-card strong{font-size:19px}.practice-shell{padding:13px}.practice-hero{gap:10px;padding:11px}.practice-hero img{width:62px;height:91px;flex-basis:62px}.slap-card{min-height:160px;padding:12px 4px}.talk-mic{height:84px;width:84px}}
 @media(prefers-reduced-motion:reduce){.talk-mic.is-listening{animation:none}.practice-fill{transition:none}}
 
+.audio-test{margin:16px 0;background:#f3f8ff;border:1px solid #dae5ff;border-radius:18px;padding:16px;color:#35466b}
+.audio-test strong{font-size:16px}.audio-test p{margin:9px 0;line-height:1.65;font-size:13px}.audio-test small{display:block;font-size:12px;line-height:1.6;color:#65718e}
+.audio-test-buttons{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.audio-test-buttons button{font:inherit;font-weight:850;cursor:pointer;padding:11px 12px;border-radius:12px;border:1px solid #d1ddf1;background:white;color:#35466b}
+#audioMessage.is-error{color:#9b3327;font-weight:800}
+#speechErrorToast{position:fixed;z-index:150;bottom:18px;left:50%;transform:translateX(-50%);width:min(calc(100% - 28px),560px);border-radius:14px;border:1px solid #f6c8be;background:#fff8f5;color:#8f2c25;padding:13px 15px;box-shadow:0 8px 28px #0002;font-size:13px;line-height:1.5}
+#speechErrorToast[hidden]{display:none}
 </style>
 </head>
 <body>
@@ -281,6 +288,17 @@
   </div>
   <div class="library-banner"><div><h3>📚 單字寶盒會慢慢長大！</h3><p>聽英文與中文發音、看聯想字與記憶故事，也能自己增加新單字、備份累積成績。</p></div><button class="primary" type="button" id="openLibrary">打開單字寶盒 →</button></div>
   <div style="display:flex;justify-content:flex-end;margin-top:10px"><button id="shareSite" type="button" class="secondary">🔗 分享遊戲網址給家人</button></div>
+  <div class="audio-test" aria-label="聲音檢查工具">
+ <strong>🔊 沒有聲音？先試這裡</strong>
+ <p>先測叮咚音效，再測英文和中文朗讀。請打開手機的「媒體音量」。</p>
+ <div class="audio-test-buttons">
+  <button type="button" id="testBell">🔔 叮咚音效</button>
+  <button type="button" id="testEnglish">🔊 英文 Hello</button>
+  <button type="button" id="testChinese">🔊 中文 你好</button>
+ </div>
+ <p id="audioMessage" role="status" aria-live="polite">如果叮咚有聲但單字無聲，請用 Chrome 或 Safari 打開網址，並檢查手機的文字轉語音設定。</p>
+ <small>從 LINE 或 ChatGPT 開啟時，若沒有朗讀聲音，請複製遊戲網址，用手機 Chrome（iPhone 用 Safari）開啟。</small>
+</div>
   <div class="statsline" id="homeStats"></div>
   <p class="save-hint">🔒 單字和星星會保留在目前的瀏覽器；換手機請使用「匯出／匯入備份」，不同裝置不會自動同步。</p>
 </section>
@@ -504,9 +522,94 @@ function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){let j=Math.
 function pool(){return shuffle(choosePool()).sort((a,b)=>(saved.wrongCounts?.[b.en]||0)-(saved.wrongCounts?.[a.en]||0))}
 function startGame(specific){round=specific?[...specific]:pool().slice(0,choices());if(!round.length){showScreen('home');return;}index=0;score=0;resultWrong=[];showScreen('game');loadQuestion();}
 function current(){return round[index]}
-function voiceFor(locale){let vs=window.speechSynthesis.getVoices();if(!vs.length)return null;const lang=locale.toLowerCase();if(lang.startsWith('zh'))return vs.find(v=>v.lang.toLowerCase()==='zh-tw')||vs.find(v=>/zh-(tw|hk)/i.test(v.lang))||vs.find(v=>v.lang.toLowerCase().startsWith('zh'))||null;
- return vs.find(v=>v.lang.toLowerCase()==='en-us'&&/samantha|ava|jenny|female/i.test(v.name))||vs.find(v=>v.lang.toLowerCase()==='en-us')||vs.find(v=>v.lang.toLowerCase().startsWith('en'))||null;}
-function speak(text,locale='en-US',rate){if(!('speechSynthesis'in window)){alert('這個瀏覽器沒有語音功能。建議使用 Chrome 或 Safari。');return;}try{let t=String(text||'').trim();if(!t)return;window.speechSynthesis.cancel();const utter=new SpeechSynthesisUtterance(t);utter.lang=locale;utter.rate=rate||(locale.startsWith('zh')?.88:.82);utter.pitch=1.04;utter.volume=1;utter.voice=voiceFor(locale);activeSpeech=utter;window.speechSynthesis.speak(utter)}catch(e){alert('播放失敗，請確認瀏覽器及手機音量。')}}
+function voiceFor(locale){
+ const synth=window.speechSynthesis;
+ const voices=(synth&&typeof synth.getVoices==='function')?synth.getVoices():[];
+ const lang=locale.toLowerCase().startsWith('zh')?'zh':'en';
+ const available=voices.filter(v=>(v.lang||'').toLowerCase().startsWith(lang));
+ if(!available.length)return null;
+ const preference=lang==='zh'?'zh-tw':'en-us';
+ return available.find(v=>(v.lang||'').toLowerCase()===preference&&v.localService)
+   ||available.find(v=>v.localService)
+   ||available.find(v=>(v.lang||'').toLowerCase()===preference)
+   ||available[0];
+}
+
+let voiceCheckTimer=0,voiceAttempt=0;
+function audioInfo(message,isError=false){
+ const panel=document.getElementById('audioMessage');
+ if(panel){panel.textContent=message;panel.classList.toggle('is-error',isError);}
+ const toast=document.getElementById('speechErrorToast');
+ if(toast && isError){toast.textContent=message;toast.hidden=false;clearTimeout(window._cythinaAudioToast);window._cythinaAudioToast=setTimeout(()=>toast.hidden=true,9500);}
+}
+function speak(text,locale='en-US',rate){
+ const spoken=String(text||'').trim();
+ if(!spoken)return false;
+ if(!window.speechSynthesis||typeof SpeechSynthesisUtterance!=='function'){
+  audioInfo('⚠️ 這個瀏覽器沒有可用的朗讀功能。請複製網址改用 Chrome（iPhone 用 Safari）開啟。',true);
+  return false;
+ }
+ try{
+  const synth=window.speechSynthesis;
+  const utter=new SpeechSynthesisUtterance(spoken);
+  const voice=voiceFor(locale);
+  utter.lang=voice?.lang||locale;
+  if(voice)utter.voice=voice;
+  utter.rate=rate??(locale.startsWith('zh')?.88:.82);
+  utter.pitch=1;
+  utter.volume=1;
+  let started=false,finished=false;
+  const ticket=++voiceAttempt;
+  utter.onstart=()=>{if(ticket!==voiceAttempt)return;started=true;audioInfo('🔊 已啟動朗讀：'+spoken+'。若仍聽不到聲音，請按「叮咚音效」測試音量。');};
+  utter.onend=()=>{finished=true;if(activeSpeech===utter)activeSpeech=null;};
+  utter.onerror=e=>{
+   finished=true;
+   if(ticket!==voiceAttempt||e.error==='canceled'||e.error==='interrupted')return;
+   const types={'not-allowed':'瀏覽器阻止播放，請直接點「測試英文」，或改用 Chrome。','language-unavailable':'找不到這個語言的朗讀語音，請檢查手機文字轉語音設定。','voice-unavailable':'選用的語音無法播放，請再按一次或改用 Chrome。','synthesis-unavailable':'手機尚未提供文字轉語音引擎，請檢查手機設定。','audio-busy':'音效裝置忙碌，請關閉其他正在播放音效的 APP 後再試。','network':'語音引擎暫時無法連線，請檢查網路。'};
+   audioInfo('⚠️ 發音失敗：'+(types[e.error]||'語音引擎沒有完成播放，請按「叮咚音效」檢查聲音，再用 Chrome 測試。'),true);
+  };
+  if(synth.speaking||synth.pending)synth.cancel();
+  if(synth.paused)synth.resume();
+  activeSpeech=utter;
+  clearTimeout(voiceCheckTimer);
+  synth.speak(utter);
+  voiceCheckTimer=setTimeout(()=>{
+   if(ticket===voiceAttempt&&!started&&!finished){
+    audioInfo('⚠️ 語音引擎沒有回報開始發音。請按「叮咚音效」測試，並在 Chrome 或 Safari 開啟網站。',true);
+   }
+  },2800);
+  return true;
+ }catch(e){
+  audioInfo('⚠️ 朗讀程式無法啟動，請檢查手機的語音引擎或改用 Chrome／Safari。',true);
+  return false;
+ }
+}
+function testSpeaker(){
+ const A=window.AudioContext||window.webkitAudioContext;
+ if(!A){audioInfo('⚠️ 這個瀏覽器無法播放測試音效，請改用 Chrome 或 Safari。',true);return;}
+ try{
+  const ctx=new A();
+  Promise.resolve(ctx.resume()).then(()=>{
+   const now=ctx.currentTime;
+   for(const [index,hz] of [660,880].entries()){
+    const osc=ctx.createOscillator(),gain=ctx.createGain();
+    osc.type='sine';osc.frequency.value=hz;
+    gain.gain.setValueAtTime(0.0001,now+index*.19);
+    gain.gain.exponentialRampToValueAtTime(.15,now+index*.19+.025);
+    gain.gain.exponentialRampToValueAtTime(.0001,now+index*.19+.17);
+    osc.connect(gain);gain.connect(ctx.destination);
+    osc.start(now+index*.19);osc.stop(now+index*.19+.18);
+   }
+   audioInfo('🔔 已發送叮咚音效：如果沒有聽到，請先調高手機媒體音量；如果叮咚有聲但英文無聲，可能是瀏覽器朗讀功能受限。');
+   setTimeout(()=>ctx.close().catch(()=>{}),1100);
+  }).catch(()=>audioInfo('⚠️ 手機阻止測試音效，請調整瀏覽器權限或改用 Chrome。',true));
+ }catch(e){audioInfo('⚠️ 無法啟動測試音效，請改用 Chrome 或 Safari。',true);}
+}
+document.getElementById('testBell').addEventListener('click',testSpeaker);
+document.getElementById('testEnglish').addEventListener('click',()=>speak('Hello! Welcome to the zoo.','en-US',.9));
+document.getElementById('testChinese').addEventListener('click',()=>speak('你好，小心心，我們一起學英文！','zh-TW',.9));
+try{window.speechSynthesis?.getVoices();}catch(e){}
+
 function speechZh(w){speak(w.zhSpeech||w.zh,'zh-TW',.88)}
 function speechEn(w,slow=false){speak(w.en,'en-US',slow?.58:.82)}
 function loadQuestion(){if(index>=round.length){finish();return;}showingAnswer=false;hasGraded=false;flashFlipped=false;const w=current();
@@ -1015,5 +1118,6 @@ for (const img of document.querySelectorAll('[data-cythina-avatar]')) {
 }
 })();
 </script>
+<div id="speechErrorToast" role="status" aria-live="polite" hidden></div>
 </body>
 </html>
