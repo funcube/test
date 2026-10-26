@@ -201,7 +201,7 @@
 .talk-mic-row{display:flex;align-items:center;gap:13px;flex-wrap:wrap;margin:12px 0}.talk-mic{width:98px;height:98px;border:3px solid #f6c4d2;background:radial-gradient(circle,#fff,#ffe9f1);color:#b84a7a;border-radius:50%;font-size:41px;box-shadow:0 7px 18px #f5c8d478}.talk-mic:active{transform:scale(.96)}.talk-mic.is-listening{animation:pulse-mic 1.25s infinite;background:#ffe1e9;border-color:#ed6185}.talk-mic:disabled{opacity:.52;cursor:not-allowed}.talk-mic-row p{flex:1;min-width:170px;color:#627087;font-size:13px;line-height:1.75;margin:0}
 @keyframes pulse-mic{0%{box-shadow:0 0 0 0 #f2779873}70%{box-shadow:0 0 0 18px #f2779800}100%{box-shadow:0 0 0 0 #f2779800}}
 .talk-input-label{display:block;font-weight:850;font-size:13px;color:#5c678b;margin:14px 0 7px}.talk-transcript{display:block;width:100%;font:inherit;font-size:17px;min-height:64px;border:2px solid #dcd9f4;background:#fcfbff;border-radius:13px;padding:12px;resize:vertical;color:#263154}
-.talk-help{padding:13px 15px;border-radius:15px;background:#fff8dd;color:#876522;font-size:13px;line-height:2;margin:9px 0;white-space:pre-line;overflow-wrap:anywhere}.talk-feedback.unsure{background:#fff8e7;color:#715b31}#talkApprove{margin:2px 0 9px;display:block;max-width:100%;font-size:13px}
+.talk-help{padding:11px 14px;border-radius:15px;background:#fff8dd;color:#876522;font-size:13px;line-height:1.85;margin:9px 0}
 .talk-feedback,.slap-feedback{border-radius:16px;padding:12px 15px;font-weight:850;font-size:15px;line-height:1.75;margin:13px 0;min-height:48px;background:#f4f5fd;color:#56627e}
 .talk-feedback.pass,.slap-feedback.pass{background:#e5f7ea;color:#1b7549}.talk-feedback.try,.slap-feedback.try{background:#fff0e8;color:#a35d2c}
 .practice-btns{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.practice-btns button{padding:11px 15px;border-radius:12px;font-weight:850;min-height:46px}.practice-btns .soft{background:#f4f1ff;border:1px solid #dbd5f6;color:#6657a9}.practice-btns button:disabled{opacity:.4;cursor:not-allowed}
@@ -387,9 +387,9 @@
     <div class="practice-hero"><img data-cythina-avatar alt="小心心 Cythina 的卡通主角" /><div><b>動物園的英語廣播站</b><p>「Hello, Cythina!」動物老師要問妳問題，準備好用英文回答了嗎？</p></div></div>
     <div id="talkSetup">
       <h1 class="practice-title" style="margin-top:18px">🎤 用英文回答老師！</h1>
-      <p class="practice-intro">課本的天氣、心情和 he / she 句型都在裡面。聽老師發問，開口說完整英文句子！同一題可以有不同的正確答案；不會時按提示會列出本課可用的所有基本回答。</p>
+      <p class="practice-intro">課本的天氣、心情和 he / she 句型都在裡面。聽老師發問，按住心情說出完整句子；不會也能看提示，再試一次！</p>
       <div class="practice-controls"><label>選擇句型主題<select id="talkTopic"><option value="all">🌎 混合練習（全部句型）</option><option value="weather">🌦️ How's the weather?</option><option value="are">🙂 Are you ...?</option><option value="is">🐾 Is he / she ...?</option><option value="describe">💬 I'm / He's / She's ...</option></select></label><label>每回合幾題<select id="talkLength"><option value="5">5 題・暖身</option><option value="10" selected>10 題・小挑戰</option><option value="all">全部題目</option></select></label><button class="primary" id="talkStart" type="button">🎤 開始對話 →</button></div>
-      <div class="practice-note">首次使用麥克風，請在瀏覽器允許錄音權限。網站保存答題次數與星星；只有家長明確核准的新英文答案會存入本機學習資料與備份，不保存錄音或一般回答文字。語音辨識可能由瀏覽器的服務處理，也可能把聲音傳送給服務商。不同手機支援情況不同，不能錄音時可手動輸入句子檢查句型。</div>
+      <div class="practice-note">首次使用麥克風，請在瀏覽器允許錄音權限。網站只保存答題次數和星星，不保存聲音或回答文字；語音辨識可能由瀏覽器的服務處理，也可能把聲音傳送給服務商。不同手機支援情況不同，不能錄音時可手動輸入句子檢查句型。</div>
       <div class="practice-note" style="margin-top:9px">📌 這個模式檢查的是「聽到的文字是否符合句型」，不是專業口音或發音準確度評分。如果辨識錯了，可以修正文字或重說。</div>
     </div>
     <div id="talkPlay" class="hidden">
@@ -398,11 +398,10 @@
       <div class="talk-story"><div id="talkScene" class="talk-scenario">🦊 阿福準備問妳英文問題……</div><h2 id="talkQuestion">How's the weather?</h2><div class="talk-cue" id="talkCue">👀 看著中文故事，用英文回答</div></div>
       <div class="talk-audio"><button id="talkListenQuestion" type="button">🔊 聽老師發問</button><button id="talkSlowQuestion" type="button">🐢 慢速問一次</button></div>
       <div class="talk-mic-row"><button type="button" class="talk-mic" id="talkMic" aria-label="按一下開始說英文，再按一下停止">🎤</button><p id="talkMicStatus" role="status">點一下麥克風開始說英文，說完會自動將聽到的內容顯示在下面。</p></div>
-      <label class="talk-input-label" for="talkTranscript">📝 網站辨識到妳說的英文（也可以自行修改）</label><textarea id="talkTranscript" class="talk-transcript" rows="2" spellcheck="false" autocapitalize="off" placeholder="例如：It's windy. 或 It's raining."></textarea>
-      <div class="practice-btns"><button class="primary" type="button" id="talkCheck">✨ 檢查我的回答</button><button class="soft" type="button" id="talkHint">💡 看所有可用回答</button><button class="soft" type="button" id="talkShowAnswer">🔊 看答案並聽示範</button></div>
+      <label class="talk-input-label" for="talkTranscript">📝 網站辨識到妳說的英文（也可以自行修改）</label><textarea id="talkTranscript" class="talk-transcript" rows="2" spellcheck="false" autocapitalize="off" placeholder="例如：It's sunny. It's hot."></textarea>
+      <div class="practice-btns"><button class="primary" type="button" id="talkCheck">✨ 檢查我的回答</button><button class="soft" type="button" id="talkHint">💡 給我一點提示</button><button class="soft" type="button" id="talkShowAnswer">👀 看示範答案</button></div>
       <div class="talk-help hidden" id="talkHelp" aria-live="polite"></div>
       <div class="talk-feedback" id="talkFeedback" role="status" aria-live="polite">準備好了嗎？先聽題，再按 🎤 開口說吧！</div>
-      <button type="button" class="secondary hidden" id="talkApprove">👩‍🏫 家長確認：這句也是正確答案</button>
       <div id="talkModel" class="talk-help hidden"></div>
       <div class="practice-btns"><button class="primary" type="button" id="talkNext">下一個問題 →</button><button class="soft" type="button" id="talkRestart">🔄 換一組題目</button></div>
     </div>
@@ -474,7 +473,7 @@ const modeIcons = {write:'✍️',spell:'⌨️',listen:'🎧',card:'🃏'};
 const worldNames = {all:'全部大冒險',number:'數字星球',weather:'天氣小鎮',feeling:'心情城堡',focus:'16–20 特訓',custom:'新增單字',review:'待加強單字'};
 const progressKey='starEnglishSpellingGrade4_v1'; // Keeps saved stats from the original game on the same website origin.
 const customKey='starEnglishSpellingGrade4_myWords_v2';
-const defaultProgress=()=>({stars:0,played:0,correct:0,attempted:0,wrongCounts:{},wordStats:{},daily:{},zooCards:[],storyRuns:0,oralStats:{attempts:0,correct:0,sessions:0},oralApproved:{},slapStats:{attempts:0,correct:0,sessions:0,bestStreak:0}});
+const defaultProgress=()=>({stars:0,played:0,correct:0,attempted:0,wrongCounts:{},wordStats:{},daily:{},zooCards:[],storyRuns:0,oralStats:{attempts:0,correct:0,sessions:0},slapStats:{attempts:0,correct:0,sessions:0,bestStreak:0}});
 let saved=defaultProgress(),customWords=[],words=[],mode='write',world='all',round=[],index=0,score=0,resultWrong=[],showingAnswer=false,flashFlipped=false,hasGraded=false,editingWord=null;
 let activeSpeech=null;
 const wordId = val=>String(val||'').trim().replace(/\s+/g,' ').toLowerCase();
@@ -482,9 +481,7 @@ const normalize = val => wordId(val).replace(/[\s\-]+/g,'');
 function getStore(key){try{return JSON.parse(localStorage.getItem(key)||'null')}catch(e){return null}}
 function cleanProgress(v){const d=defaultProgress();if(!v||typeof v!=='object'||Array.isArray(v))return d;
  for(const k of ['stars','played','correct','attempted','storyRuns'])d[k]=Number.isFinite(Number(v[k]))?Math.max(0,Math.min(9999999,Number(v[k]))):0;
- for(const key of ['wrongCounts','wordStats','daily'])if(v[key]&&typeof v[key]==='object'&&!Array.isArray(v[key]))d[key]=v[key];
- if(v.oralApproved&&typeof v.oralApproved==='object'&&!Array.isArray(v.oralApproved)){for(const [key,values] of Object.entries(v.oralApproved).slice(0,100)){if(typeof key==='string'&&key.length<=125&&Array.isArray(values)){d.oralApproved[key]=[...new Set(values.filter(z=>typeof z==='string'&&z.length<=175).map(z=>z.trim().toLowerCase()))].slice(0,80);}}}
- if(Array.isArray(v.zooCards))d.zooCards=[...new Set(v.zooCards.filter(x=>typeof x==='string').slice(0,50))];for(const field of ['oralStats','slapStats']){if(v[field]&&typeof v[field]==='object'){for(const k of Object.keys(d[field])){const n=Number(v[field][k]);if(Number.isFinite(n))d[field][k]=Math.max(0,Math.min(999999,Math.floor(n)));}}}return d;}
+ for(const key of ['wrongCounts','wordStats','daily'])if(v[key]&&typeof v[key]==='object'&&!Array.isArray(v[key]))d[key]=v[key];if(Array.isArray(v.zooCards))d.zooCards=[...new Set(v.zooCards.filter(x=>typeof x==='string').slice(0,50))];for(const field of ['oralStats','slapStats']){if(v[field]&&typeof v[field]==='object'){for(const k of Object.keys(d[field])){const n=Number(v[field][k]);if(Number.isFinite(n))d[field][k]=Math.max(0,Math.min(999999,Math.floor(n)));}}}return d;}
 function cleanCustom(w){if(!w||typeof w!=='object')return null;
  let en=wordId(w.en),zh=String(w.zh||'').trim();if(!/^[a-z][a-z\s'’-]{0,44}$/.test(en)||!zh||zh.length>40)return null;
  return {en,zh,zhSpeech:zh,related:String(w.related||'').trim().slice(0,65),memo:String(w.memo||'').trim().slice(0,250),emoji:String(w.emoji||'📘').slice(0,8)||'📘',category:'custom'};}
@@ -792,8 +789,6 @@ window.CythinaCore={
   speak,
   recordOral(ok,earned){saved.oralStats.attempts++;saved.attempted++;if(ok){saved.oralStats.correct++;saved.correct++;saved.stars+=earned||0;}persist();},
   finishOral(){saved.oralStats.sessions++;saved.played++;persist();},
-  isApprovedOral(key,answer){return Boolean(saved.oralApproved?.[key]?.includes(String(answer||'').trim().toLowerCase()));},
-  approveOral(key,answer){key=String(key||'').slice(0,125);answer=String(answer||'').trim().toLowerCase().slice(0,175);if(!key||!answer)return false;const list=Array.isArray(saved.oralApproved[key])?saved.oralApproved[key]:[];saved.oralApproved[key]=[...new Set([...list,answer])].slice(-80);persist();return true;},
   recordSlap(ok,earned,streak){saved.slapStats.attempts++;saved.attempted++;if(ok){saved.slapStats.correct++;saved.correct++;saved.stars+=earned||0;}saved.slapStats.bestStreak=Math.max(saved.slapStats.bestStreak,streak||0);persist();},
   finishSlap(){saved.slapStats.sessions++;saved.played++;persist();}
 };
@@ -850,101 +845,29 @@ const questions=[
  {topic:'describe',kind:'describe',subject:'she',adjective:'sad',scene:'🐰 露露（she）的魔法花不見了，她很難過。',question:'How is she?',cue:'用 She’s ... 說一句完整的英文。',model:"She's sad."},
  {topic:'describe',kind:'describe',subject:'he',adjective:'happy',scene:'🦁 萊歐（he）要開音樂派對了，心情超好！',question:'How is he?',cue:'用 He’s ... 說一句完整的英文。',model:"He's happy."}
 ];
-// In free conversation, these prompts are open-ended. The story must not contradict a valid reply.
-const openScenes={
- weather:['🦊 阿福請妳當動物園的小小氣象主播。今天的天氣由妳自由想像！','🌤️ 動物廣播站正在練習說天氣，選妳喜歡的天氣來形容吧！','🐻 動物老師舉起天氣話筒，妳可以選任何合適的天氣描述。'],
- are:['🙂 阿福想知道妳現在的感覺。妳可以依照自己的狀態回答 Yes 或 No。','🎒 小心心來到動物園，現在的感覺只有妳自己最清楚！'],
- is:['🐰 動物園故事沒有設定唯一答案，妳可以想像角色的狀態，再回答 Yes 或 No。','🦊 動物老師邀請妳幫忙想像動物朋友的感受，兩種回答都可以。'],
- describe:['🌈 幫故事角色自由選一個心情吧！只要句子正確，任一合適的感覺都可以。','💗 這次沒有唯一心情，請自己選一個形容詞說英文。']
-};
-questions.forEach((q,i)=>{
- const type=q.kind==='yesno'?(q.subject==='i'?'are':'is'):q.kind;
- const choices=openScenes[type];q.scene=choices[i%choices.length];
- q.cue=q.kind==='weather'?'天氣可以自由選，回答一個或多個正確天氣句子都可以。':
-  q.kind==='yesno'?'依照妳的想法回答 Yes 或 No；兩種都可能正確，請注意主詞和 be 動詞。':
-  '任選一個適合的人物感受，I’m / He’s / She’s + 形容詞都可以。';
-});
-// Open-answer marking: compare the sentence structure and relevant vocabulary, not one preselected model.
-// The list covers textbook and common Grade-4 expressions. Anything outside it goes to parent review,
-// rather than being marked as definitively wrong.
-const WEATHER_WORDS=['sunny','rainy','cloudy','windy','hot','warm','cool','cold','raining','snowing','snowy','foggy','stormy','humid','dry','chilly','freezing','clear','overcast','drizzling','pouring','nice','beautiful'];
-const FEELING_WORDS=['happy','sad','angry','tired','full','hungry','thirsty','fine','good','okay','great','excited','sleepy','nervous','scared','bored','sick','well','upset','calm','busy','confused','worried','cold','cool','warm','hot'];
-const oppositeFeeling={hungry:['full'],full:['hungry'],happy:['sad','angry','upset'],sad:['happy','good','fine'],angry:['calm','happy'],tired:['energetic','awake'],thirsty:[]};
-const adverbs='(?:(?:very|really|so|quite|pretty|extremely|a little|a bit) )?';
-const phrase=(word)=>`${adverbs}${word}`;
-const weatherOne=`(?:${WEATHER_WORDS.join('|')})`;
-const weatherPhrase=phrase(weatherOne);
-const weatherStart=`(?:it is|the weather is) ${weatherPhrase}`;
-const weatherChain=`(?: (?:and|but) (?:(?:it is|the weather is) )?${weatherPhrase}| (?:it is|the weather is) ${weatherPhrase})*`;
-const weatherGrammar=new RegExp(`^(?:today )?${weatherStart}${weatherChain}(?: today| outside| right now)?$`);
-const feelingsBase=`(?:${FEELING_WORDS.join('|')})`;
-const feelingsPhrase=phrase(feelingsBase);
-const feelingGrammar=new RegExp(`^(?:${feelingsPhrase})(?:(?: and | but )${feelingsPhrase})?$`);
+// Recognition is imperfect: mark a response by the recognized (or edited) *words* and grammar, not acoustic pronunciation.
 function normalizeSpoken(value){return String(value||'').toLowerCase().normalize('NFKC')
- .replace(/[’‘ʼ`]/g,"'")
- .replace(/\bit\s*'?s\b|\bits\b/g,'it is')
- .replace(/\bi\s*'?m\b|\bim\b/g,'i am')
- .replace(/\bhe\s*'?s\b/g,'he is')
- .replace(/\bshe\s*'?s\b/g,'she is')
- .replace(/\b(is|are|was|were)\s*n\s*'?t\b/g,'$1 not')
- .replace(/\bcan't\b/g,'cannot')
- .replace(/[^a-z\s]/g,' ').replace(/\s+/g,' ').trim();}
-const oralKey=q=>`${q.topic}|${q.question.toLowerCase().trim()}`;
-const lastAdjective=q=>(q.question.toLowerCase().match(/\b([a-z]+)\?$/)||[])[1]||'';
-function checkWeather(s){
- const clean=s.replace(/\bwendy\b/g,'windy'); // common speech-to-text confusion only in weather Q&A
- return weatherGrammar.test(clean);
-}
-function checkYesNo(q,s){
- const subject=q.subject==='i'?'i am':`${q.subject} is`;
- const target=lastAdjective(q);
- const targetPhrase=phrase(target);
- let polarity='';
- if(s.startsWith('yes ')){polarity='yes';s=s.slice(4);}
- else if(s.startsWith('no ')){polarity='no';s=s.slice(3);}
- const affirmative = new RegExp(`^${subject}(?: ${targetPhrase})?$`).test(s);
- const negative = new RegExp(`^${subject} not(?: ${targetPhrase})?$`).test(s);
- const opposite=(oppositeFeeling[target]||[]).some(w=>new RegExp(`^${subject} ${phrase(w)}$`).test(s));
- if(polarity==='yes')return affirmative;
- if(polarity==='no')return negative||opposite;
- return (affirmative&&s!==subject)||negative&&s!==`${subject} not`||opposite;
-}
-function checkDescribe(q,s){
- const subject=q.subject==='i'?'i am':`${q.subject} is`;
- const response=s.startsWith(`${subject} `)?s.slice(subject.length+1):'';
- if(response&&feelingGrammar.test(response))return true;
- if(response.startsWith('not ')){return feelingGrammar.test(response.slice(4));}
- const feelSub=q.subject==='i'?'i feel':`${q.subject} feels`;
- if(s.startsWith(`${feelSub} `)&&feelingGrammar.test(s.slice(feelSub.length+1)))return true;
- if(q.subject==='i' && /^(?:fine|good|great|okay|not bad)(?: thanks| thank you)?$/.test(s))return true;
- return false;
-}
+  .replace(/[’‘ʼ`]/g,"'")
+  .replace(/\bit\s*'?s\b|\bits\b/g,'it is')
+  .replace(/\bi\s*'?m\b/g,'i am')
+  .replace(/\bhe\s*'?s\b/g,'he is')
+  .replace(/\bshe\s*'?s\b/g,'she is')
+  .replace(/\b(is|are)\s*n\s*'?t\b/g,'$1 not')
+  .replace(/\bcannot\b|\bcan\s*'?t\b/g,'can not')
+  .replace(/[^a-z\s]/g,' ').replace(/\s+/g,' ').trim();}
 function evaluateSpoken(q,value){const s=normalizeSpoken(value);if(!s)return false;
- if(core.isApprovedOral(oralKey(q),s))return true;
- if(q.kind==='weather')return checkWeather(s);
- if(q.kind==='yesno')return checkYesNo(q,s);
- if(q.kind==='describe')return checkDescribe(q,s);
- return false;
-}
-function openAnswerExamples(q){
- if(q.kind==='weather')return WEATHER_WORDS.map(w=>`It's ${w}.`).concat(["It's sunny and hot.","It's windy. It's cold."]);
- const subject=q.subject==='i'?'I':q.subject==='he'?'He':'She';
- if(q.kind==='describe'){
-   const opening=subject==='I'?"I'm":`${subject}'s`;
-   return FEELING_WORDS.map(w=>`${opening} ${w}.`);
+ if(q.kind==='weather')return /\bit is\b/.test(s)&&q.adjs.every(a=>new RegExp(`\\b${a}\\b`).test(s));
+ if(q.kind==='yesno'){
+   const yes=q.yes?'yes':'no';
+   if(!new RegExp(`(?:^| )${yes}(?: |$)`).test(s))return false;
+   if(q.subject==='i')return q.yes?/\bi am\b(?! not)/.test(s):/\bi am not\b/.test(s);
+   return q.yes?new RegExp(`\\b${q.subject} is\\b(?! not)`).test(s):new RegExp(`\\b${q.subject} is not\\b`).test(s);
  }
- const adj=lastAdjective(q),base=subject==='I'?'I am':`${subject.toLowerCase()} is`;
- const notBase=subject==='I'?"I'm not":`${subject} isn't`;
- const list=[`Yes, ${base}.`,`No, ${notBase}.`,`Yes, ${base} ${adj}.`,`No, ${notBase} ${adj}.`];
- (oppositeFeeling[adj]||[]).forEach(w=>list.push(`No, ${subject==='I'?"I'm":`${subject}'s`} ${w}.`));
- return list;
-}
-function allAnswerHint(q){
- const answers=openAnswerExamples(q);
- const headline=q.kind==='weather'?'天氣不指定，下面任何一句都可以；也可以用 and 或兩句結合。':
-  q.kind==='yesno'?'這個問題沒有預設的唯一 Yes／No，兩種回答都正確，選妳想表達的狀態。':
-  '這裡的心情是自由選擇的，以下都是能使用的英文回答。';
- return `${headline}\n\n${answers.map(a=>'✅ '+a).join('\n')}\n\n💡 還有其他自然的英文說法，系統不一定都認得；可請家長核准補充。`;
+ if(q.kind==='describe'){
+   const sub=q.subject==='i'?'i am':`${q.subject} is`;
+   return new RegExp(`\\b${sub}\\s+${q.adjective}\\b`).test(s);
+ }
+ return false;
 }
 let talkSession=null, activeRecognition=null, listening=false, lastRecognitionError='';
 const Rec=window.SpeechRecognition||window.webkitSpeechRecognition;
@@ -973,44 +896,36 @@ function renderTalk(){stopListening();const t=talkSession,q=t?.items[t.index];if
  el('talkTranscript').value='';
  el('talkFeedback').className='talk-feedback';
  el('talkFeedback').textContent='先聽動物老師問話，再按麥克風回答英文！';
- el('talkHelp').classList.add('hidden');el('talkModel').classList.add('hidden');el('talkApprove').classList.add('hidden');
- el('talkHint').textContent='💡 看所有可用回答';el('talkNext').textContent='下一個問題 →';
+ el('talkHelp').classList.add('hidden');el('talkModel').classList.add('hidden');
+ el('talkHint').textContent='💡 給我一點提示';el('talkNext').textContent='下一個問題 →';
  el('talkMic').disabled=!Rec;
  el('talkMicStatus').textContent=Rec?'點一下麥克風開始說英文，系統聽到後會顯示文字。':'目前瀏覽器不支援直接語音辨識；可以在下方輸入答案檢查句型，或改用 Chrome／Safari。';
 }
 function talkReveal(){const q=talkSession?.items[talkSession.index];if(!q)return;talkSession.hinted=true;talkSession.revealed=true;
- el('talkModel').classList.remove('hidden');
- el('talkModel').textContent='📚 本課可以使用的正確回答：\n'+allAnswerHint(q);
- // One example is spoken, but the checker does NOT require this example.
+ el('talkModel').classList.remove('hidden');el('talkModel').textContent=`🌟 示範答案：${q.model}（可以跟著唸，再按麥克風練習）`;
  english(q.model,.69);
 }
 function talkShowHint(){const t=talkSession,q=t?.items[t.index];if(!q)return;t.hinted=true;t.hintLevel++;
- el('talkHelp').classList.remove('hidden');el('talkHelp').textContent='💡 '+allAnswerHint(q);
- el('talkHint').textContent='💡 答案清單已顯示';
+ const strip=word=>word[0]+'＿'.repeat(Math.max(2,word.length-1));
+ let hint='';
+ if(t.hintLevel===1){hint=q.kind==='weather'?'可以先從 It’s 開始，再說第二句 It’s ...。':q.kind==='yesno'?(q.subject==='i'?'回答開頭選 Yes / No，接著說 I am（否定要加 not）。':'先選 Yes / No，再用 he 或 she 回答。'):'想一想：I’m / He’s / She’s 的主詞要跟情境相同。';}
+ else if(t.hintLevel===2){hint=q.kind==='weather'?`兩個描述字的開頭是：${q.adjs.map(strip).join(' ＋ ')}。`:q.kind==='describe'?`形容詞提示：${strip(q.adjective)}，主詞是 ${q.subject==='i'?'I':q.subject}。`:`${q.yes?'開頭是 Yes。':'開頭是 No。'} 想一想人稱是 ${q.subject==='i'?'I':q.subject}。`;}
+ else{talkReveal();hint='現在可以看示範答案，跟著說一次。';}
+ el('talkHelp').classList.remove('hidden');el('talkHelp').textContent='💡 '+hint;
 }
 function checkTalk(method='typed'){
  const t=talkSession,q=t?.items[t.index];if(!q)return;
  const heard=el('talkTranscript').value.trim();if(!heard){el('talkFeedback').className='talk-feedback try';el('talkFeedback').textContent='我還沒聽到完整的英文回答，請再說一次或輸入句子。';return;}
  const correct=evaluateSpoken(q,heard);
- if(correct){el('talkApprove').classList.add('hidden');if(!t.passed){t.passed=true;t.answered++;const reward=t.hinted||t.missed?1:3;t.earned+=reward;core.recordOral(true,reward);}
+ if(correct){if(!t.passed){t.passed=true;t.answered++;const reward=t.hinted||t.missed?1:3;t.earned+=reward;core.recordOral(true,reward);}
   el('talkFeedback').className='talk-feedback pass';
-  const via=method==='voice'?'（以語音辨識到的文字判斷）':method==='parent'?'（家長核准的合理回答）':'（以輸入文字判斷）';
-  el('talkFeedback').textContent=`✅ ${exclamations[(t.index+t.earned)%exclamations.length]} 妳的答案符合這個問題！${via} 不必跟示範句完全一樣。`;
+  el('talkFeedback').textContent=`✅ ${exclamations[(t.index+t.earned)%exclamations.length]} 這個英文句型正確！${method==='voice'?'（根據語音辨識結果）':'（根據輸入的文字）'} 這題過關了！`;
   el('talkNext').textContent=t.index===t.items.length-1?'🎉 看闖關成果 →':'繼續下一題 →';
  }else{
-  // A rule-based checker cannot judge every grammatical English sentence; don't make a definitive "wrong" claim.
-  el('talkApprove').classList.remove('hidden');el('talkFeedback').className='talk-feedback unsure';
-  const pattern=q.kind==='weather'?"常見句型是 It's sunny. / It's raining. / It's hot.，但其他天氣也可能正確。":
-    q.kind==='yesno'?'Yes 與 No 都可以，記得用正確的 I am / he is / she is 及否定句。':
-    '可以任選心情形容詞，記得用 I’m / He’s / She’s 的完整句子。';
-  el('talkFeedback').textContent=`🟡 我聽到：「${heard}」。目前沒辦法自動確認這句是否符合本課句型，不代表一定是錯的。${pattern} 你可以修改辨識文字、重說一次，或請家長確認。`;
+  t.missed++;core.recordOral(false,0);el('talkFeedback').className='talk-feedback try';
+  const pattern=q.kind==='weather'?'記得用 It’s ... 描述兩個天氣資訊。':q.kind==='yesno'?'先判斷 Yes / No，主詞和 is / am / not 也要對。':'注意要有主詞（I / he / she）和正確的 be 動詞。';
+  el('talkFeedback').textContent=`🔁 聽到的是：「${heard}」。這次句型還不完全符合，${pattern} 也可能是語音辨識聽錯；妳可以修改文字，或再說一次！`;
  }
-}
-function approveTalk(){
- const t=talkSession,q=t?.items[t.index];if(!q||t.passed)return;
- const heard=el('talkTranscript').value.trim();if(!heard)return;
- if(!window.confirm(`請家長確認：\n\n「${heard}」\n\n這句英文的文法和意思都適合問題「${q.question}」嗎？\n\n確認後會在此裝置記住這個新答案。`))return;
- if(core.approveOral(oralKey(q),normalizeSpoken(heard)))checkTalk('parent');
 }
 function startListening(){if(!talkSession||!talkSession.items[talkSession.index]||talkSession.passed)return;
  if(!Rec){el('talkMicStatus').textContent='手機瀏覽器沒有語音辨識，請使用下方文字欄位檢查句型。';return;}
@@ -1020,12 +935,7 @@ function startListening(){if(!talkSession||!talkSession.items[talkSession.index]
  r.onstart=()=>{if(activeRecognition!==r)return;listening=true;el('talkMic').textContent='⏹️';el('talkMic').classList.add('is-listening');el('talkMicStatus').textContent='🔴 正在聽小心心說話……說完整句就可以囉！';};
  r.onresult=e=>{if(activeRecognition!==r||!talkSession||talkSession.index!==activeIndex)return;
   let transcript='',final=false;
-  for(let i=0;i<e.results.length;i++){
-    const alternatives=Array.from(e.results[i]).map(option=>option.transcript);
-    const current=talkSession.items[talkSession.index];
-    const matching=alternatives.find(option=>evaluateSpoken(current,option));
-    transcript+=' '+(matching||alternatives[0]||'');final=final||e.results[i].isFinal;
-  }
+  for(let i=0;i<e.results.length;i++){transcript+=' '+e.results[i][0].transcript;final=final||e.results[i].isFinal;}
   if(transcript.trim()){el('talkTranscript').value=transcript.trim();el('talkMicStatus').textContent=final?'✅ 已聽到回答，正在檢查句型。':'👂 我正在把妳的話轉成文字……';}
   if(final&&transcript.trim())checkTalk('voice');
  };
@@ -1044,7 +954,7 @@ function leaveTalk(){stopListening();talkSession=null;try{window.speechSynthesis
 const on=(id,event,cb)=>el(id).addEventListener(event,cb);
 on('launchTalk','click',openTalk);on('oralBack','click',leaveTalk);on('talkStart','click',newTalk);
 on('talkListenQuestion','click',()=>speakQuestion());on('talkSlowQuestion','click',()=>speakQuestion(true));on('talkMic','click',startListening);
-on('talkCheck','click',()=>checkTalk('typed'));on('talkHint','click',talkShowHint);on('talkShowAnswer','click',talkReveal);on('talkApprove','click',approveTalk);
+on('talkCheck','click',()=>checkTalk('typed'));on('talkHint','click',talkShowHint);on('talkShowAnswer','click',talkReveal);
 on('talkNext','click',nextTalk);on('talkRestart','click',()=>{if(window.confirm('重新選一組新題目嗎？已得到的星星都會保留喔。'))newTalk();});
 on('talkAgain','click',newTalk);on('talkEndHome','click',leaveTalk);
 on('talkTranscript','keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();checkTalk('typed');}});
