@@ -255,6 +255,17 @@
     <div class="story-status"><span>📖 四關循序學習</span><span id="collectibleCount">🎴 圖卡 0 / 12</span><span>💾 自動保存收藏</span></div>
     <div class="story-control" style="margin-bottom:0"><button type="button" id="openZoo" class="secondary">🏛️ 我的動物圖鑑</button></div>
   </div>
+<div class="audio-test" aria-label="聲音檢查工具">
+ <strong>🔊 沒有聲音？先試這裡</strong>
+ <p>先測叮咚音效，再測英文和中文朗讀。請打開手機的「媒體音量」。</p>
+ <div class="audio-test-buttons">
+  <button type="button" id="testBell">🔔 叮咚音效</button>
+  <button type="button" id="testEnglish">🔊 英文 Hello</button>
+  <button type="button" id="testChinese">🔊 中文 你好</button>
+ </div>
+ <p id="audioMessage" role="status" aria-live="polite">如果叮咚有聲但單字無聲，請用 Chrome 或 Safari 打開網址，並檢查手機的文字轉語音設定。</p>
+ <small>從 LINE 或 ChatGPT 開啟時，若沒有朗讀聲音，請複製遊戲網址，用手機 Chrome（iPhone 用 Safari）開啟。</small>
+</div>
   <!-- Optional games: oral dialogue practice and two-card listening challenge. -->
   <div class="section-heading" style="margin-top:22px"><h2>✨ 新遊戲：開口說＆快手拍</h2><span>課堂句型 × 聽音反應</span></div>
   <div class="new-games">
@@ -288,18 +299,7 @@
   </div>
   <div class="library-banner"><div><h3>📚 單字寶盒會慢慢長大！</h3><p>聽英文與中文發音、看聯想字與記憶故事，也能自己增加新單字、備份累積成績。</p></div><button class="primary" type="button" id="openLibrary">打開單字寶盒 →</button></div>
   <div style="display:flex;justify-content:flex-end;margin-top:10px"><button id="shareSite" type="button" class="secondary">🔗 分享遊戲網址給家人</button></div>
-  <div class="audio-test" aria-label="聲音檢查工具">
- <strong>🔊 沒有聲音？先試這裡</strong>
- <p>先測叮咚音效，再測英文和中文朗讀。請打開手機的「媒體音量」。</p>
- <div class="audio-test-buttons">
-  <button type="button" id="testBell">🔔 叮咚音效</button>
-  <button type="button" id="testEnglish">🔊 英文 Hello</button>
-  <button type="button" id="testChinese">🔊 中文 你好</button>
- </div>
- <p id="audioMessage" role="status" aria-live="polite">如果叮咚有聲但單字無聲，請用 Chrome 或 Safari 打開網址，並檢查手機的文字轉語音設定。</p>
- <small>從 LINE 或 ChatGPT 開啟時，若沒有朗讀聲音，請複製遊戲網址，用手機 Chrome（iPhone 用 Safari）開啟。</small>
-</div>
-  <div class="statsline" id="homeStats"></div>
+    <div class="statsline" id="homeStats"></div>
   <p class="save-hint">🔒 單字和星星會保留在目前的瀏覽器；換手機請使用「匯出／匯入備份」，不同裝置不會自動同步。</p>
 </section>
 <section class="screen" id="game" aria-label="英文單字闖關">
