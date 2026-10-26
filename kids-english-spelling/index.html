@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#fff8ef" />
-<meta name="description" content="國小四年級英文單字小遊戲：手寫、拼字、聽寫、字卡，從數字、天氣到心情，邊玩邊記單字。" />
+<meta name="description" content="小心心 Cythina 的四年級英文動物園：故事四關、收藏圖卡、英語口說句型、兩張卡聽音拍卡、單字累積與雙語發音。" />
 <title>小心心 Cythina 的瘋狂動物園｜英語闖關遊戲</title>
 <style>
 :root{--ink:#283558;--sub:#71809c;--purple:#6557d4;--purplelight:#eeeafe;--cream:#fff9ef;--peach:#ffe3d4;--line:#e9eaf3;--white:#fff;--green:#228c68;--pink:#ec668d;--blue:#3c84d1;--gold:#eeb12e;--shadow:0 10px 32px rgba(57,57,114,.08)}
@@ -182,6 +182,41 @@
 }
 @media(max-width:350px){.story-hero-figure{width:92px;flex-basis:92px}.cythina-main{height:138px}.cythina-nameplate{font-size:8px}}
 
+/* v4: oral conversation practice and two-card listening slap game */
+.new-games{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin:21px 0 17px}
+.new-game-card{border-radius:23px;padding:18px 19px;border:2px solid #e5dbff;background:linear-gradient(135deg,#f5f0ff,#fff);box-shadow:var(--shadow);text-align:left;display:flex;flex-direction:column;align-items:flex-start;gap:9px;color:#35416a;min-height:176px;transition:transform .12s ease,box-shadow .12s ease}
+.new-game-card:nth-child(2){border-color:#f5dcc0;background:linear-gradient(135deg,#ffefcf,#fff9eb)}
+.new-game-card:active{transform:scale(.975)}.new-game-card strong{font-size:20px;line-height:1.35}.new-game-card small{font-size:13px;line-height:1.6;color:#69748a}.new-game-card em{font-size:12px;font-weight:900;font-style:normal;color:#5d51ad;margin-top:auto}.new-game-icon{font-size:36px;line-height:1}
+.practice-shell{background:#fff;border:1px solid #e6e5f4;border-radius:27px;padding:21px;box-shadow:var(--shadow);margin-top:14px}
+.practice-title{margin:0 0 9px;font-size:clamp(22px,4.8vw,29px)}.practice-intro{font-size:14px;color:#69748e;line-height:1.85;margin:7px 0 15px}
+.practice-hero{display:flex;gap:16px;align-items:center;padding:13px 17px;background:linear-gradient(120deg,#eef5fc,#f5ecff);border-radius:21px}
+.practice-hero img{width:74px;height:106px;flex:0 0 74px;object-fit:contain}.practice-hero b{display:block;font-size:16px;color:#5746a4;line-height:1.45}.practice-hero p{margin:4px 0;color:#607083;font-size:13px;line-height:1.7}
+.practice-controls{display:flex;flex-wrap:wrap;gap:9px;margin:17px 0}.practice-controls label{display:flex;flex-direction:column;gap:6px;color:#65708e;font-weight:850;font-size:13px;flex:1;min-width:150px}.practice-controls select{min-height:46px;padding:10px;border:1px solid #dadcea;border-radius:13px;color:#273454;background:#fff;width:100%}
+.practice-controls button{min-height:48px;align-self:flex-end}.practice-note{font-size:12px;line-height:1.8;color:#77809a;padding:12px 14px;border-radius:14px;background:#f5f7fe}
+.practice-track{height:10px;border-radius:99px;background:#edf0f8;overflow:hidden;margin:17px 0}.practice-fill{height:100%;background:linear-gradient(90deg,#7c68e5,#db8aca);width:0%;transition:width .3s}
+.practice-progress{display:flex;justify-content:space-between;align-items:center;gap:9px;font-size:12px;color:#69758c;font-weight:900;margin:6px 0}
+.talk-story{border:1px solid #e3dbfb;background:#fbf8ff;border-radius:20px;padding:18px;margin:12px 0}
+.talk-story .talk-scenario{font-size:14px;color:#636582;line-height:1.85;margin-bottom:9px}.talk-story h2{font-size:clamp(24px,5vw,33px);color:#5041a7;margin:7px 0 8px;line-height:1.3}.talk-story .talk-cue{font-size:13px;color:#806c9d;line-height:1.7}
+.talk-audio{display:flex;gap:9px;flex-wrap:wrap;margin:10px 0 15px}.talk-audio button{border-radius:13px;background:#edeaff;color:#5a50aa;border:1px solid #d6cffb;padding:12px 15px;font-size:13px;font-weight:850}
+.talk-mic-row{display:flex;align-items:center;gap:13px;flex-wrap:wrap;margin:12px 0}.talk-mic{width:98px;height:98px;border:3px solid #f6c4d2;background:radial-gradient(circle,#fff,#ffe9f1);color:#b84a7a;border-radius:50%;font-size:41px;box-shadow:0 7px 18px #f5c8d478}.talk-mic:active{transform:scale(.96)}.talk-mic.is-listening{animation:pulse-mic 1.25s infinite;background:#ffe1e9;border-color:#ed6185}.talk-mic:disabled{opacity:.52;cursor:not-allowed}.talk-mic-row p{flex:1;min-width:170px;color:#627087;font-size:13px;line-height:1.75;margin:0}
+@keyframes pulse-mic{0%{box-shadow:0 0 0 0 #f2779873}70%{box-shadow:0 0 0 18px #f2779800}100%{box-shadow:0 0 0 0 #f2779800}}
+.talk-input-label{display:block;font-weight:850;font-size:13px;color:#5c678b;margin:14px 0 7px}.talk-transcript{display:block;width:100%;font:inherit;font-size:17px;min-height:64px;border:2px solid #dcd9f4;background:#fcfbff;border-radius:13px;padding:12px;resize:vertical;color:#263154}
+.talk-help{padding:11px 14px;border-radius:15px;background:#fff8dd;color:#876522;font-size:13px;line-height:1.85;margin:9px 0}
+.talk-feedback,.slap-feedback{border-radius:16px;padding:12px 15px;font-weight:850;font-size:15px;line-height:1.75;margin:13px 0;min-height:48px;background:#f4f5fd;color:#56627e}
+.talk-feedback.pass,.slap-feedback.pass{background:#e5f7ea;color:#1b7549}.talk-feedback.try,.slap-feedback.try{background:#fff0e8;color:#a35d2c}
+.practice-btns{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.practice-btns button{padding:11px 15px;border-radius:12px;font-weight:850;min-height:46px}.practice-btns .soft{background:#f4f1ff;border:1px solid #dbd5f6;color:#6657a9}.practice-btns button:disabled{opacity:.4;cursor:not-allowed}
+.practice-results{padding:23px 12px;text-align:center}.practice-results h2{font-size:27px;margin:10px 0}.practice-results p{line-height:1.85;color:#66748d}.practice-results .big-number{color:#7054c5;font-size:42px;font-weight:950;margin:13px auto}.practice-results .primary{margin:7px}
+.slap-scene{background:linear-gradient(115deg,#fff7de,#ffe4ec);padding:17px;text-align:center;border-radius:20px;margin:12px 0}.slap-scene strong{font-size:19px;color:#a85a3b}.slap-scene p{margin:7px 0;font-size:13px;color:#95674c;line-height:1.6}
+.slap-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0}
+.slap-card{position:relative;border:3px solid #dfd8fa;border-radius:23px;min-height:178px;background:linear-gradient(145deg,#fff,#f0eeff);box-shadow:0 6px 0 #d9d1f8;padding:16px 10px;color:#4f459c;font-size:clamp(23px,4.7vw,35px);font-weight:950;overflow-wrap:anywhere;line-height:1.3;transition:transform .1s,background .1s}
+.slap-card:nth-child(2){background:linear-gradient(145deg,#fff,#fff2dc);border-color:#ffe0ad;box-shadow:0 6px 0 #f1d6aa;color:#8f603b}
+.slap-card:active:not(:disabled){transform:translateY(4px);box-shadow:0 2px 0 #ded3fa}
+.slap-card:disabled{cursor:default}.slap-card.correct,.slap-card:nth-child(2).correct{border-color:#55b988;background:#e4f8ee;color:#1b7649;box-shadow:0 4px 0 #a5dabc}.slap-card.wrong,.slap-card:nth-child(2).wrong{border-color:#eaa092;background:#ffe4de;color:#ba563d;box-shadow:0 4px 0 #f7b6a9}
+.slap-card small{display:block;font-size:12px;color:inherit;opacity:.65;margin-top:9px}.slap-stats{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}.slap-stats span{padding:9px 12px;background:#fff4dd;color:#986f32;border-radius:99px;font-weight:850;font-size:13px}
+.slap-prompt{font-size:15px;color:#6a5c6d;text-align:center;font-weight:850;margin:13px 0 8px}
+@media(max-width:610px){.new-games{grid-template-columns:1fr;gap:9px}.new-game-card{min-height:132px;padding:13px 16px}.new-game-icon{font-size:30px}.new-game-card strong{font-size:19px}.practice-shell{padding:13px}.practice-hero{gap:10px;padding:11px}.practice-hero img{width:62px;height:91px;flex-basis:62px}.slap-card{min-height:160px;padding:12px 4px}.talk-mic{height:84px;width:84px}}
+@media(prefers-reduced-motion:reduce){.talk-mic.is-listening{animation:none}.practice-fill{transition:none}}
+
 </style>
 </head>
 <body>
@@ -213,6 +248,13 @@
     <div class="story-status"><span>📖 四關循序學習</span><span id="collectibleCount">🎴 圖卡 0 / 12</span><span>💾 自動保存收藏</span></div>
     <div class="story-control" style="margin-bottom:0"><button type="button" id="openZoo" class="secondary">🏛️ 我的動物圖鑑</button></div>
   </div>
+  <!-- Optional games: oral dialogue practice and two-card listening challenge. -->
+  <div class="section-heading" style="margin-top:22px"><h2>✨ 新遊戲：開口說＆快手拍</h2><span>課堂句型 × 聽音反應</span></div>
+  <div class="new-games">
+    <button type="button" class="new-game-card" id="launchTalk"><span class="new-game-icon">🎙️</span><strong>小心心的英語對話</strong><small>聽動物老師問句 → 麥克風回答 → 辨識英文句型，答錯再試一次</small><em>天氣・Are you・Is he/she・I'm / He's / She's →</em></button>
+    <button type="button" class="new-game-card" id="launchSlap"><span class="new-game-icon">⚡</span><strong>心臟病・聽音拍卡</strong><small>畫面出現兩張英文卡，聽發音後，趕快拍對那張！</small><em>連擊集星星，內建／新增單字都能玩 →</em></button>
+  </div>
+
   <div class="section-heading"><h2>① 自由練習模式</h2><span>點選一種就能玩</span></div>
   <div class="mode-grid" id="modeGrid" role="group" aria-label="遊戲方式">
     <button type="button" class="mode selected" data-mode="write" aria-pressed="true"><span class="big-emoji">✍️</span><strong>手寫挑戰</strong><small>用手指寫，再核對答案</small></button>
@@ -339,8 +381,60 @@
   <div class="zoo-finish"><div class="cythina-finale"><img class="cythina-character cythina-finale-img" data-cythina-avatar alt="小心心的卡通主角慶祝完成四個英文關卡" /><div aria-hidden="true">🏆🦊🐼</div></div><h1>小心心，妳拯救了動物園！</h1><p id="storyFinishLine">動物朋友們一起高喊：<b>"You did it, Cythina!"</b><br>完成了四個英文關卡，今天又更厲害了！</p><div class="result-stats"><div class="stat"><strong id="storyFinishQuestions">12</strong><span>本回合練習</span></div><div class="stat"><strong id="storyFinishCards">4</strong><span>累積新圖卡</span></div><div class="stat"><strong id="storyFinishStars">24</strong><span>獲得星星</span></div></div><div class="story-btn-row"><button type="button" class="primary" id="storyAgain">🔁 再冒險一次</button><button type="button" class="secondary" id="storyFinishGallery">🎴 打開動物圖鑑</button><button type="button" class="secondary" id="storyFinishHome">🏠 回首頁</button></div></div>
 </section>
 
+<section class="screen" id="oral" aria-label="小心心英文口說對話練習">
+  <div class="quiz-header"><button type="button" class="back" id="oralBack">← 回到主選單</button><span class="small-pill">🎙️ 英文對話練習</span></div>
+  <div class="practice-shell">
+    <div class="practice-hero"><img data-cythina-avatar alt="小心心 Cythina 的卡通主角" /><div><b>動物園的英語廣播站</b><p>「Hello, Cythina!」動物老師要問妳問題，準備好用英文回答了嗎？</p></div></div>
+    <div id="talkSetup">
+      <h1 class="practice-title" style="margin-top:18px">🎤 用英文回答老師！</h1>
+      <p class="practice-intro">課本的天氣、心情和 he / she 句型都在裡面。聽老師發問，按住心情說出完整句子；不會也能看提示，再試一次！</p>
+      <div class="practice-controls"><label>選擇句型主題<select id="talkTopic"><option value="all">🌎 混合練習（全部句型）</option><option value="weather">🌦️ How's the weather?</option><option value="are">🙂 Are you ...?</option><option value="is">🐾 Is he / she ...?</option><option value="describe">💬 I'm / He's / She's ...</option></select></label><label>每回合幾題<select id="talkLength"><option value="5">5 題・暖身</option><option value="10" selected>10 題・小挑戰</option><option value="all">全部題目</option></select></label><button class="primary" id="talkStart" type="button">🎤 開始對話 →</button></div>
+      <div class="practice-note">首次使用麥克風，請在瀏覽器允許錄音權限。網站只保存答題次數和星星，不保存聲音或回答文字；語音辨識可能由瀏覽器的服務處理，也可能把聲音傳送給服務商。不同手機支援情況不同，不能錄音時可手動輸入句子檢查句型。</div>
+      <div class="practice-note" style="margin-top:9px">📌 這個模式檢查的是「聽到的文字是否符合句型」，不是專業口音或發音準確度評分。如果辨識錯了，可以修正文字或重說。</div>
+    </div>
+    <div id="talkPlay" class="hidden">
+      <div class="practice-progress"><span id="talkStep">第 1 / 10 題</span><span id="talkEarned">⭐ 本回合 0 顆</span></div>
+      <div class="practice-track"><div class="practice-fill" id="talkBar"></div></div>
+      <div class="talk-story"><div id="talkScene" class="talk-scenario">🦊 阿福準備問妳英文問題……</div><h2 id="talkQuestion">How's the weather?</h2><div class="talk-cue" id="talkCue">👀 看著中文故事，用英文回答</div></div>
+      <div class="talk-audio"><button id="talkListenQuestion" type="button">🔊 聽老師發問</button><button id="talkSlowQuestion" type="button">🐢 慢速問一次</button></div>
+      <div class="talk-mic-row"><button type="button" class="talk-mic" id="talkMic" aria-label="按一下開始說英文，再按一下停止">🎤</button><p id="talkMicStatus" role="status">點一下麥克風開始說英文，說完會自動將聽到的內容顯示在下面。</p></div>
+      <label class="talk-input-label" for="talkTranscript">📝 網站辨識到妳說的英文（也可以自行修改）</label><textarea id="talkTranscript" class="talk-transcript" rows="2" spellcheck="false" autocapitalize="off" placeholder="例如：It's sunny. It's hot."></textarea>
+      <div class="practice-btns"><button class="primary" type="button" id="talkCheck">✨ 檢查我的回答</button><button class="soft" type="button" id="talkHint">💡 給我一點提示</button><button class="soft" type="button" id="talkShowAnswer">👀 看示範答案</button></div>
+      <div class="talk-help hidden" id="talkHelp" aria-live="polite"></div>
+      <div class="talk-feedback" id="talkFeedback" role="status" aria-live="polite">準備好了嗎？先聽題，再按 🎤 開口說吧！</div>
+      <div id="talkModel" class="talk-help hidden"></div>
+      <div class="practice-btns"><button class="primary" type="button" id="talkNext">下一個問題 →</button><button class="soft" type="button" id="talkRestart">🔄 換一組題目</button></div>
+    </div>
+    <div id="talkEnd" class="practice-results hidden"><div style="font-size:62px">🎉</div><h2>小心心，妳敢開口說英文了！</h2><div class="big-number" id="talkEndResult">0 / 10 題</div><p id="talkEndNote">每練一次，說英文就更有自信！</p><div class="practice-btns" style="justify-content:center"><button type="button" class="primary" id="talkAgain">再練一回合</button><button type="button" class="soft" id="talkEndHome">回遊戲首頁</button></div></div>
+  </div>
+</section>
+<section class="screen" id="slap" aria-label="心臟病聽音拍卡英文遊戲">
+  <div class="quiz-header"><button type="button" class="back" id="slapBack">← 回到主選單</button><span class="small-pill">⚡ 聽音拍卡</span></div>
+  <div class="practice-shell">
+    <div class="practice-hero" style="background:linear-gradient(110deg,#fff3cd,#fff0ea)"><img data-cythina-avatar alt="小心心 Cythina 的卡通主角" /><div><b>狐狸郵差的快手挑戰！</b><p>「Ready, set, GO!」兩張英文卡，只能拍一張！聽到哪個字，就趕快拍下去！</p></div></div>
+    <div id="slapSetup">
+      <h1 class="practice-title" style="margin-top:18px">🃏 英文心臟病：聽、找、拍！</h1>
+      <p class="practice-intro">先聽英文發音，再拍對單字卡。拍對就連擊加分，拍錯會顯示正解與中文意思。原本 35 個字和未來新增的單字都能用！</p>
+      <div class="practice-controls"><label>選擇單字主題<select id="slapTopic"><option value="weather">🌦️ 天氣單字</option><option value="feeling">💗 心情單字</option><option value="number">🔢 數字 1–20</option><option value="all">🌍 全部單字</option><option value="custom">📚 我新增的單字</option></select></label><label>一回合幾張<select id="slapLength"><option value="5">5 張・暖身</option><option value="10" selected>10 張・經典</option><option value="20">20 張・挑戰</option></select></label><button class="primary" type="button" id="slapStart">⚡ 開始拍卡 →</button></div>
+      <div id="slapSetupMessage" class="practice-note">🔊 請開啟手機音量。每張卡可按「再聽一次」，不必開麥克風。</div>
+    </div>
+    <div id="slapPlay" class="hidden">
+      <div class="practice-progress"><span id="slapStep">第 1 / 10 張</span><span>🎯 聽對字、拍對卡</span></div>
+      <div class="practice-track"><div class="practice-fill" id="slapBar"></div></div>
+      <div class="slap-stats"><span id="slapScore">⭐ 得分 0</span><span id="slapStreak">🔥 連擊 0</span><span id="slapHits">✅ 拍對 0</span></div>
+      <div class="slap-scene"><strong>👂 Listen &amp; SLAP!</strong><p>兩個英文單字，剛剛動物老師唸的是哪一個？</p></div>
+      <div class="slap-prompt" id="slapPrompt">🔊 仔細聽發音，再拍下面的單字卡！</div>
+      <div class="slap-cards"><button type="button" class="slap-card" id="slapLeft">sunny<small>👆 拍我！</small></button><button type="button" class="slap-card" id="slapRight">rainy<small>👆 拍我！</small></button></div>
+      <div class="slap-feedback" id="slapFeedback" role="status" aria-live="polite">聽到了嗎？請選一張卡！</div>
+      <div class="practice-btns" style="justify-content:center"><button type="button" class="soft" id="slapReplay">🔊 再聽一次</button><button type="button" class="primary" id="slapNext" disabled>下一張 →</button></div>
+      <div class="practice-note">💡 想要像教室裡的心臟病一樣刺激，可以跟家人輪流比反應速度！這裡是單人練習版，按錯也能學會。</div>
+    </div>
+    <div id="slapEnd" class="practice-results hidden"><div style="font-size:62px">🏆</div><h2>快手小心心，挑戰完成！</h2><div class="big-number" id="slapEndResult">0 / 10</div><p id="slapEndNote">動物朋友們都在歡呼！</p><div class="practice-btns" style="justify-content:center"><button class="primary" type="button" id="slapAgain">再拍一次</button><button class="soft" type="button" id="slapEndHome">回遊戲首頁</button></div></div>
+  </div>
+</section>
+
 </main>
-<div class="foot"><b>⭐ 小心心英語動物園</b><div>國小四年級・可持續新增單字／雙語發音／聯想記憶｜免登入</div></div>
+<div class="foot"><b>⭐ 小心心英語動物園</b><div>國小四年級・單字累積／口說對話／聽音拍卡／動物圖卡｜免登入</div></div>
 </div>
 <script>
 (() => {
@@ -373,13 +467,13 @@ const builtins=numberNames.map((en,i)=>({en,zh:`數字 ${i+1}`,zhSpeech:cnNums[i
  {en:'thirsty',zh:'口渴',emoji:'🥤',category:'feeling',related:'thirst',memo:'thirst 是「口渴」這件事；thirsty 是「覺得口渴」。'}
 ]);
 const byId = id => document.getElementById(id);
-const els = {home:byId('home'),game:byId('game'),finish:byId('finish'),library:byId('library'),story:byId('story'),reward:byId('reward'),collectibles:byId('collectibles'),storyFinish:byId('storyFinish')};
+const els = {home:byId('home'),game:byId('game'),finish:byId('finish'),library:byId('library'),story:byId('story'),reward:byId('reward'),collectibles:byId('collectibles'),storyFinish:byId('storyFinish'),oral:byId('oral'),slap:byId('slap')};
 const modeNames = {write:'手寫挑戰',spell:'拼字測驗',listen:'聽音拼字',card:'單字字卡'};
 const modeIcons = {write:'✍️',spell:'⌨️',listen:'🎧',card:'🃏'};
 const worldNames = {all:'全部大冒險',number:'數字星球',weather:'天氣小鎮',feeling:'心情城堡',focus:'16–20 特訓',custom:'新增單字',review:'待加強單字'};
 const progressKey='starEnglishSpellingGrade4_v1'; // Keeps saved stats from the original game on the same website origin.
 const customKey='starEnglishSpellingGrade4_myWords_v2';
-const defaultProgress=()=>({stars:0,played:0,correct:0,attempted:0,wrongCounts:{},wordStats:{},daily:{},zooCards:[],storyRuns:0});
+const defaultProgress=()=>({stars:0,played:0,correct:0,attempted:0,wrongCounts:{},wordStats:{},daily:{},zooCards:[],storyRuns:0,oralStats:{attempts:0,correct:0,sessions:0},slapStats:{attempts:0,correct:0,sessions:0,bestStreak:0}});
 let saved=defaultProgress(),customWords=[],words=[],mode='write',world='all',round=[],index=0,score=0,resultWrong=[],showingAnswer=false,flashFlipped=false,hasGraded=false,editingWord=null;
 let activeSpeech=null;
 const wordId = val=>String(val||'').trim().replace(/\s+/g,' ').toLowerCase();
@@ -387,7 +481,7 @@ const normalize = val => wordId(val).replace(/[\s\-]+/g,'');
 function getStore(key){try{return JSON.parse(localStorage.getItem(key)||'null')}catch(e){return null}}
 function cleanProgress(v){const d=defaultProgress();if(!v||typeof v!=='object'||Array.isArray(v))return d;
  for(const k of ['stars','played','correct','attempted','storyRuns'])d[k]=Number.isFinite(Number(v[k]))?Math.max(0,Math.min(9999999,Number(v[k]))):0;
- for(const key of ['wrongCounts','wordStats','daily'])if(v[key]&&typeof v[key]==='object'&&!Array.isArray(v[key]))d[key]=v[key];if(Array.isArray(v.zooCards))d.zooCards=[...new Set(v.zooCards.filter(x=>typeof x==='string').slice(0,50))];return d;}
+ for(const key of ['wrongCounts','wordStats','daily'])if(v[key]&&typeof v[key]==='object'&&!Array.isArray(v[key]))d[key]=v[key];if(Array.isArray(v.zooCards))d.zooCards=[...new Set(v.zooCards.filter(x=>typeof x==='string').slice(0,50))];for(const field of ['oralStats','slapStats']){if(v[field]&&typeof v[field]==='object'){for(const k of Object.keys(d[field])){const n=Number(v[field][k]);if(Number.isFinite(n))d[field][k]=Math.max(0,Math.min(999999,Math.floor(n)));}}}return d;}
 function cleanCustom(w){if(!w||typeof w!=='object')return null;
  let en=wordId(w.en),zh=String(w.zh||'').trim();if(!/^[a-z][a-z\s'’-]{0,44}$/.test(en)||!zh||zh.length>40)return null;
  return {en,zh,zhSpeech:zh,related:String(w.related||'').trim().slice(0,65),memo:String(w.memo||'').trim().slice(0,250),emoji:String(w.emoji||'📘').slice(0,8)||'📘',category:'custom'};}
@@ -400,7 +494,7 @@ function updateStars(){byId('starCount').querySelector('span').textContent=Strin
  byId('homeStats').textContent=saved.attempted?`🎒 累積練習 ${saved.attempted} 題，完成 ${saved.played} 回合。答對 ${saved.correct} 題，繼續加油！`:'🎒 第一次冒險即將開始，出發去收集星星吧！';
  byId('metricWords').textContent=String(words.length);byId('metricPractice').textContent=String(saved.attempted);let mastered=words.filter(w=>(saved.wordStats?.[w.en]?.streak||0)>=3).length;byId('metricMastered').textContent=String(mastered);renderCounts();}
 function renderCounts(){let a=byId('allCount'),b=byId('customCount'),c=byId('reviewCount');if(a)a.textContent=String(words.length);if(b)b.textContent=String(customWords.length);if(c)c.textContent=String(words.filter(w=>(saved.wrongCounts?.[w.en]||0)>0).length);}
-function showScreen(id){for(const [k,el]of Object.entries(els))el.classList.toggle('active',k===id);
+function showScreen(id){for(const [k,el]of Object.entries(els))el.classList.toggle('active',k===id);document.dispatchEvent(new CustomEvent('cythina:screen',{detail:{id}}));
  if(id==='library')renderLibrary();if(id==='collectibles')renderZooGallery();if(id==='home'){updateStars();syncChoices();updateStoryAvailability()}try{window.scrollTo({top:0,behavior:'instant'})}catch(e){window.scrollTo(0,0)}}
 function choosePool(){return words.filter(w=>world==='all'||w.category===world||(world==='focus'&&w.focus)||(world==='review'&&(saved.wrongCounts?.[w.en]||0)>0));}
 function choices(){const n=byId('roundSize').value;return n==='all'?choosePool().length:Math.min(Number(n),choosePool().length)}
@@ -689,7 +783,225 @@ byId('storyFinishGallery').addEventListener('click',()=>showStoryGallery('home')
 byId('storyFinishHome').addEventListener('click',()=>showScreen('home'));
 updateStoryAvailability();
 
+window.CythinaCore={
+  showScreen,
+  getWords:()=>[...words],
+  speak,
+  recordOral(ok,earned){saved.oralStats.attempts++;saved.attempted++;if(ok){saved.oralStats.correct++;saved.correct++;saved.stars+=earned||0;}persist();},
+  finishOral(){saved.oralStats.sessions++;saved.played++;persist();},
+  recordSlap(ok,earned,streak){saved.slapStats.attempts++;saved.attempted++;if(ok){saved.slapStats.correct++;saved.correct++;saved.stars+=earned||0;}saved.slapStats.bestStreak=Math.max(saved.slapStats.bestStreak,streak||0);persist();},
+  finishSlap(){saved.slapStats.sessions++;saved.played++;persist();}
+};
+
 updateStars();syncChoices();
+})();
+
+</script>
+<script>
+// Small extensions for Cythina's learning adventure: teacher asks, learner talks, and fast two-card listening.
+(() => {
+'use strict';
+const el=id=>document.getElementById(id);
+const core=window.CythinaCore;
+if(!core)return;
+const rand=list=>{const a=[...list];for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a};
+const english=(word,rate=.82)=>core.speak(word,'en-US',rate);
+const exclamations=['太厲害了！','Excellent!','Good job, Cythina!','太棒了！','You got it!'];
+const weatherPairs=[
+ ['sunny','hot','☀️ 動物園天空晴朗，太陽大又熱。'],
+ ['rainy','cold','🌧️ 小鎮在下雨，氣溫也很冷。'],
+ ['cloudy','cool','☁️ 天空都是雲，吹起來很涼爽。'],
+ ['windy','cold','🌬️ 風吹得很大，大家都覺得寒冷。'],
+ ['sunny','warm','🌤️ 陽光灑滿大地，溫暖但不熱。'],
+ ['rainy','cool','🌦️ 下著小雨，天氣有點涼。'],
+ ['cloudy','warm','⛅ 陰雲遮住太陽，但氣溫溫暖。'],
+ ['windy','hot','🍃 雖然吹著風，今天卻很炎熱。']
+];
+const questions=[
+ ...weatherPairs.map(([a,b,scene])=>({topic:'weather',kind:'weather',scene,question:"How's the weather?",cue:'觀察天氣，用兩個英文句子描述（天氣 ＋ 冷熱感覺）。',adjs:[a,b],model:`It's ${a}. It's ${b}.`,hint:'先說 It’s ...，再說 It’s ...。'})),
+ {topic:'are',kind:'yesno',subject:'i',yes:true,scene:'🍔 小心心剛玩完遊戲，肚子咕嚕叫！',question:'Are you hungry?',cue:'請根據故事，回答 Yes 或 No 的完整句子。',model:'Yes, I am.'},
+ {topic:'are',kind:'yesno',subject:'i',yes:false,scene:'🥞 小心心剛剛吃完兩大盤點心，已經吃飽了！',question:'Are you hungry?',cue:'請根據故事，回答 Yes 或 No 的完整句子。',model:"No, I'm not."},
+ {topic:'are',kind:'yesno',subject:'i',yes:true,scene:'😋 小心心吃完豐盛晚餐，摸著飽飽的肚子。',question:'Are you full?',cue:'請根據故事，用完整句子回答。',model:'Yes, I am.'},
+ {topic:'are',kind:'yesno',subject:'i',yes:true,scene:'🥤 小心心跑步跑得滿身大汗，很想喝水。',question:'Are you thirsty?',cue:'請根據故事，用完整句子回答。',model:'Yes, I am.'},
+ {topic:'are',kind:'yesno',subject:'i',yes:false,scene:'🧃 小心心才剛喝完一大杯水，現在不渴。',question:'Are you thirsty?',cue:'請根據故事，用完整句子回答。',model:"No, I'm not."},
+ {topic:'are',kind:'yesno',subject:'i',yes:true,scene:'😴 玩了一整天，小心心打起呵欠。',question:'Are you tired?',cue:'請根據故事，用完整句子回答。',model:'Yes, I am.'},
+ {topic:'are',kind:'yesno',subject:'i',yes:true,scene:'🎉 小心心集到了新圖卡，開心得跳起來！',question:'Are you happy?',cue:'請根據故事，用完整句子回答。',model:'Yes, I am.'},
+ {topic:'are',kind:'yesno',subject:'i',yes:false,scene:'🥳 小心心正在開心慶祝，一點也不難過。',question:'Are you sad?',cue:'請根據故事，用完整句子回答。',model:"No, I'm not."},
+ {topic:'are',kind:'yesno',subject:'i',yes:false,scene:'🌈 小心心今天心情很好，沒有生氣。',question:'Are you angry?',cue:'請根據故事，用完整句子回答。',model:"No, I'm not."},
+ {topic:'is',kind:'yesno',subject:'he',yes:true,scene:'🦊 阿福（he）笑咪咪地送出信件，看起來好開心！',question:'Is he happy?',cue:'注意問題是 he（他），用 Yes 或 No 回答。',model:'Yes, he is.'},
+ {topic:'is',kind:'yesno',subject:'he',yes:false,scene:'🦊 阿福（he）充滿精神，正在草地上跑步，一點也不累。',question:'Is he tired?',cue:'注意問題是 he（他），用 Yes 或 No 回答。',model:"No, he isn't."},
+ {topic:'is',kind:'yesno',subject:'she',yes:true,scene:'🐰 露露（she）玩了一整天，已經累得打呵欠。',question:'Is she tired?',cue:'注意問題是 she（她），用 Yes 或 No 回答。',model:'Yes, she is.'},
+ {topic:'is',kind:'yesno',subject:'she',yes:false,scene:'🐰 露露（she）剛吃完大餐，已經不餓了。',question:'Is she hungry?',cue:'注意問題是 she（她），用 Yes 或 No 回答。',model:"No, she isn't."},
+ {topic:'is',kind:'yesno',subject:'she',yes:true,scene:'🐰 露露（she）跑得滿身汗，很想喝水！',question:'Is she thirsty?',cue:'注意問題是 she（她），用 Yes 或 No 回答。',model:'Yes, she is.'},
+ {topic:'is',kind:'yesno',subject:'he',yes:true,scene:'🐼 波波（he）剛吃完滿桌點心，肚子圓滾滾。',question:'Is he full?',cue:'注意問題是 he（他），用 Yes 或 No 回答。',model:'Yes, he is.'},
+ {topic:'is',kind:'yesno',subject:'he',yes:false,scene:'🦁 萊歐（he）笑得很開心，一點也沒有生氣。',question:'Is he angry?',cue:'注意問題是 he（他），用 Yes 或 No 回答。',model:"No, he isn't."},
+ {topic:'is',kind:'yesno',subject:'she',yes:false,scene:'🐰 露露（she）笑咪咪正在跳舞，沒有難過。',question:'Is she sad?',cue:'注意問題是 she（她），用 Yes 或 No 回答。',model:"No, she isn't."},
+ {topic:'describe',kind:'describe',subject:'i',adjective:'happy',scene:'✨ Cythina 因為過關很開心！請幫自己說出心情。',question:'How are you?',cue:'用 I’m ... 說一句完整的英文。',model:"I'm happy."},
+ {topic:'describe',kind:'describe',subject:'i',adjective:'hungry',scene:'🍞 小心心肚子好餓，準備找點心。',question:'How are you?',cue:'用 I’m ... 說一句完整的英文。',model:"I'm hungry."},
+ {topic:'describe',kind:'describe',subject:'i',adjective:'tired',scene:'😴 小心心玩累了，想睡個午覺。',question:'How are you?',cue:'用 I’m ... 說一句完整的英文。',model:"I'm tired."},
+ {topic:'describe',kind:'describe',subject:'he',adjective:'angry',scene:'🦊 阿福（he）的信件被風吹走了，他很生氣。',question:'How is he?',cue:'用 He’s ... 說一句完整的英文。',model:"He's angry."},
+ {topic:'describe',kind:'describe',subject:'he',adjective:'full',scene:'🐼 波波（he）吃飽點心，肚子圓滾滾。',question:'How is he?',cue:'用 He’s ... 說一句完整的英文。',model:"He's full."},
+ {topic:'describe',kind:'describe',subject:'she',adjective:'tired',scene:'🐰 露露（she）忙著施魔法，現在覺得好累。',question:'How is she?',cue:'用 She’s ... 說一句完整的英文。',model:"She's tired."},
+ {topic:'describe',kind:'describe',subject:'she',adjective:'sad',scene:'🐰 露露（she）的魔法花不見了，她很難過。',question:'How is she?',cue:'用 She’s ... 說一句完整的英文。',model:"She's sad."},
+ {topic:'describe',kind:'describe',subject:'he',adjective:'happy',scene:'🦁 萊歐（he）要開音樂派對了，心情超好！',question:'How is he?',cue:'用 He’s ... 說一句完整的英文。',model:"He's happy."}
+];
+// Recognition is imperfect: mark a response by the recognized (or edited) *words* and grammar, not acoustic pronunciation.
+function normalizeSpoken(value){return String(value||'').toLowerCase().normalize('NFKC')
+  .replace(/[’‘ʼ`]/g,"'")
+  .replace(/\bit\s*'?s\b|\bits\b/g,'it is')
+  .replace(/\bi\s*'?m\b/g,'i am')
+  .replace(/\bhe\s*'?s\b/g,'he is')
+  .replace(/\bshe\s*'?s\b/g,'she is')
+  .replace(/\b(is|are)\s*n\s*'?t\b/g,'$1 not')
+  .replace(/\bcannot\b|\bcan\s*'?t\b/g,'can not')
+  .replace(/[^a-z\s]/g,' ').replace(/\s+/g,' ').trim();}
+function evaluateSpoken(q,value){const s=normalizeSpoken(value);if(!s)return false;
+ if(q.kind==='weather')return /\bit is\b/.test(s)&&q.adjs.every(a=>new RegExp(`\\b${a}\\b`).test(s));
+ if(q.kind==='yesno'){
+   const yes=q.yes?'yes':'no';
+   if(!new RegExp(`(?:^| )${yes}(?: |$)`).test(s))return false;
+   if(q.subject==='i')return q.yes?/\bi am\b(?! not)/.test(s):/\bi am not\b/.test(s);
+   return q.yes?new RegExp(`\\b${q.subject} is\\b(?! not)`).test(s):new RegExp(`\\b${q.subject} is not\\b`).test(s);
+ }
+ if(q.kind==='describe'){
+   const sub=q.subject==='i'?'i am':`${q.subject} is`;
+   return new RegExp(`\\b${sub}\\s+${q.adjective}\\b`).test(s);
+ }
+ return false;
+}
+let talkSession=null, activeRecognition=null, listening=false, lastRecognitionError='';
+const Rec=window.SpeechRecognition||window.webkitSpeechRecognition;
+function stopListening(){if(activeRecognition){try{activeRecognition.abort();}catch(e){}activeRecognition=null;}listening=false;el('talkMic').classList.remove('is-listening');el('talkMic').textContent='🎤';}
+function speakQuestion(slow=false){if(!talkSession||!talkSession.items[talkSession.index])return;stopListening();english(talkSession.items[talkSession.index].question,slow?.62:.85);}
+function buildTalkPool(){const topic=el('talkTopic').value;let pool=questions.filter(q=>topic==='all'||q.topic===topic);
+ if(topic==='all'){
+   // Balance grammar groups so a short round includes weather, self, he/she, and simple descriptive answers.
+   const byGroup=['weather','are','is','describe'].map(type=>rand(pool.filter(q=>q.topic===type)));
+   const out=[];while(byGroup.some(arr=>arr.length))for(let i=0;i<byGroup.length;i++){if(byGroup[i].length)out.push(byGroup[i].shift());}
+   pool=out;
+ }else pool=rand(pool);
+ const requested=el('talkLength').value;return requested==='all'?pool:pool.slice(0,Math.max(1,Number(requested)||10));
+}
+function openTalk(){stopSlapTimer();core.showScreen('oral');el('talkSetup').classList.remove('hidden');el('talkPlay').classList.add('hidden');el('talkEnd').classList.add('hidden');}
+function newTalk(){stopListening();const items=buildTalkPool();talkSession={items,index:0,answered:0,earned:0,passed:false,hinted:false,hintLevel:0,revealed:false,missed:0};
+ el('talkSetup').classList.add('hidden');el('talkEnd').classList.add('hidden');el('talkPlay').classList.remove('hidden');renderTalk();}
+function renderTalk(){stopListening();const t=talkSession,q=t?.items[t.index];if(!q){finishTalk();return;}
+ t.passed=false;t.hinted=false;t.hintLevel=0;t.revealed=false;t.missed=0;
+ el('talkStep').textContent=`第 ${t.index+1} / ${t.items.length} 題`;
+ el('talkEarned').textContent=`⭐ 本回合 ${t.earned} 顆`;
+ el('talkBar').style.width=`${t.index/t.items.length*100}%`;
+ el('talkScene').textContent=q.scene;
+ el('talkQuestion').textContent=q.question;
+ el('talkCue').textContent=q.cue;
+ el('talkTranscript').value='';
+ el('talkFeedback').className='talk-feedback';
+ el('talkFeedback').textContent='先聽動物老師問話，再按麥克風回答英文！';
+ el('talkHelp').classList.add('hidden');el('talkModel').classList.add('hidden');
+ el('talkHint').textContent='💡 給我一點提示';el('talkNext').textContent='下一個問題 →';
+ el('talkMic').disabled=!Rec;
+ el('talkMicStatus').textContent=Rec?'點一下麥克風開始說英文，系統聽到後會顯示文字。':'目前瀏覽器不支援直接語音辨識；可以在下方輸入答案檢查句型，或改用 Chrome／Safari。';
+}
+function talkReveal(){const q=talkSession?.items[talkSession.index];if(!q)return;talkSession.hinted=true;talkSession.revealed=true;
+ el('talkModel').classList.remove('hidden');el('talkModel').textContent=`🌟 示範答案：${q.model}（可以跟著唸，再按麥克風練習）`;
+ english(q.model,.69);
+}
+function talkShowHint(){const t=talkSession,q=t?.items[t.index];if(!q)return;t.hinted=true;t.hintLevel++;
+ const strip=word=>word[0]+'＿'.repeat(Math.max(2,word.length-1));
+ let hint='';
+ if(t.hintLevel===1){hint=q.kind==='weather'?'可以先從 It’s 開始，再說第二句 It’s ...。':q.kind==='yesno'?(q.subject==='i'?'回答開頭選 Yes / No，接著說 I am（否定要加 not）。':'先選 Yes / No，再用 he 或 she 回答。'):'想一想：I’m / He’s / She’s 的主詞要跟情境相同。';}
+ else if(t.hintLevel===2){hint=q.kind==='weather'?`兩個描述字的開頭是：${q.adjs.map(strip).join(' ＋ ')}。`:q.kind==='describe'?`形容詞提示：${strip(q.adjective)}，主詞是 ${q.subject==='i'?'I':q.subject}。`:`${q.yes?'開頭是 Yes。':'開頭是 No。'} 想一想人稱是 ${q.subject==='i'?'I':q.subject}。`;}
+ else{talkReveal();hint='現在可以看示範答案，跟著說一次。';}
+ el('talkHelp').classList.remove('hidden');el('talkHelp').textContent='💡 '+hint;
+}
+function checkTalk(method='typed'){
+ const t=talkSession,q=t?.items[t.index];if(!q)return;
+ const heard=el('talkTranscript').value.trim();if(!heard){el('talkFeedback').className='talk-feedback try';el('talkFeedback').textContent='我還沒聽到完整的英文回答，請再說一次或輸入句子。';return;}
+ const correct=evaluateSpoken(q,heard);
+ if(correct){if(!t.passed){t.passed=true;t.answered++;const reward=t.hinted||t.missed?1:3;t.earned+=reward;core.recordOral(true,reward);}
+  el('talkFeedback').className='talk-feedback pass';
+  el('talkFeedback').textContent=`✅ ${exclamations[(t.index+t.earned)%exclamations.length]} 這個英文句型正確！${method==='voice'?'（根據語音辨識結果）':'（根據輸入的文字）'} 這題過關了！`;
+  el('talkNext').textContent=t.index===t.items.length-1?'🎉 看闖關成果 →':'繼續下一題 →';
+ }else{
+  t.missed++;core.recordOral(false,0);el('talkFeedback').className='talk-feedback try';
+  const pattern=q.kind==='weather'?'記得用 It’s ... 描述兩個天氣資訊。':q.kind==='yesno'?'先判斷 Yes / No，主詞和 is / am / not 也要對。':'注意要有主詞（I / he / she）和正確的 be 動詞。';
+  el('talkFeedback').textContent=`🔁 聽到的是：「${heard}」。這次句型還不完全符合，${pattern} 也可能是語音辨識聽錯；妳可以修改文字，或再說一次！`;
+ }
+}
+function startListening(){if(!talkSession||!talkSession.items[talkSession.index]||talkSession.passed)return;
+ if(!Rec){el('talkMicStatus').textContent='手機瀏覽器沒有語音辨識，請使用下方文字欄位檢查句型。';return;}
+ if(listening){if(activeRecognition)try{activeRecognition.stop()}catch(e){}return;}
+ try{window.speechSynthesis?.cancel();}catch(e){}
+ lastRecognitionError='';const activeIndex=talkSession.index;const r=new Rec();activeRecognition=r;r.lang='en-US';r.continuous=false;r.interimResults=true;r.maxAlternatives=3;
+ r.onstart=()=>{if(activeRecognition!==r)return;listening=true;el('talkMic').textContent='⏹️';el('talkMic').classList.add('is-listening');el('talkMicStatus').textContent='🔴 正在聽小心心說話……說完整句就可以囉！';};
+ r.onresult=e=>{if(activeRecognition!==r||!talkSession||talkSession.index!==activeIndex)return;
+  let transcript='',final=false;
+  for(let i=0;i<e.results.length;i++){transcript+=' '+e.results[i][0].transcript;final=final||e.results[i].isFinal;}
+  if(transcript.trim()){el('talkTranscript').value=transcript.trim();el('talkMicStatus').textContent=final?'✅ 已聽到回答，正在檢查句型。':'👂 我正在把妳的話轉成文字……';}
+  if(final&&transcript.trim())checkTalk('voice');
+ };
+ r.onerror=e=>{if(activeRecognition!==r)return;lastRecognitionError=e.error||'unknown';const msg=lastRecognitionError==='not-allowed'?'沒有麥克風權限，請在瀏覽器網址列開啟麥克風權限。':lastRecognitionError==='no-speech'?'剛剛沒聽清楚，再靠近手機說一次。':'語音辨識暫時無法使用；可以重試或手動輸入句子。';el('talkMicStatus').textContent='⚠️ '+msg;};
+ r.onend=()=>{if(activeRecognition!==r)return;activeRecognition=null;listening=false;el('talkMic').classList.remove('is-listening');el('talkMic').textContent='🎤';if(!lastRecognitionError)el('talkMicStatus').textContent='錄音聆聽已結束。想再說一次就按 🎤。';};
+ try{r.start();}catch(e){stopListening();el('talkMicStatus').textContent='⚠️ 麥克風無法啟動，請檢查權限或改用文字欄位。';}
+}
+function nextTalk(){if(!talkSession)return;if(!talkSession.passed&&!talkSession.revealed){talkReveal();el('talkNext').textContent='跳過這題 →';return;}
+ stopListening();talkSession.index++;renderTalk();}
+function finishTalk(){stopListening();const t=talkSession;if(!t)return;core.finishOral();
+ el('talkPlay').classList.add('hidden');el('talkEnd').classList.remove('hidden');el('talkBar').style.width='100%';
+ el('talkEndResult').textContent=`${t.answered} / ${t.items.length} 題完成`;
+ el('talkEndNote').textContent=`這次累積 ${t.earned} 顆星！答錯可以再說一次。下次換另一組故事練，會越來越熟練！`;
+}
+function leaveTalk(){stopListening();talkSession=null;try{window.speechSynthesis?.cancel()}catch(e){}core.showScreen('home');}
+const on=(id,event,cb)=>el(id).addEventListener(event,cb);
+on('launchTalk','click',openTalk);on('oralBack','click',leaveTalk);on('talkStart','click',newTalk);
+on('talkListenQuestion','click',()=>speakQuestion());on('talkSlowQuestion','click',()=>speakQuestion(true));on('talkMic','click',startListening);
+on('talkCheck','click',()=>checkTalk('typed'));on('talkHint','click',talkShowHint);on('talkShowAnswer','click',talkReveal);
+on('talkNext','click',nextTalk);on('talkRestart','click',()=>{if(window.confirm('重新選一組新題目嗎？已得到的星星都會保留喔。'))newTalk();});
+on('talkAgain','click',newTalk);on('talkEndHome','click',leaveTalk);
+on('talkTranscript','keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();checkTalk('typed');}});
+
+// Listening slap game: two visible English cards and one spoken target (no microphone required).
+let slapSession=null,slapTimer=null;
+function stopSlapTimer(){if(slapTimer!==null)clearTimeout(slapTimer);slapTimer=null;}
+function openSlap(){stopListening();core.showScreen('slap');el('slapSetup').classList.remove('hidden');el('slapPlay').classList.add('hidden');el('slapEnd').classList.add('hidden');}
+function pairFor(word,pool){const same=pool.filter(w=>w.en!==word.en&&w.category===word.category);const others=pool.filter(w=>w.en!==word.en);const other=rand(same.length?same:others)[0];return rand([word,other]);}
+function startSlap(){stopSlapTimer();let topic=el('slapTopic').value;const pool=core.getWords().filter(w=>topic==='all'||w.category===topic);
+ if(pool.length<2){el('slapSetupMessage').textContent='這個分類至少要 2 個單字才能拍卡，請先新增單字或改選其他分類。';return;}
+ const len=Math.max(1,Number(el('slapLength').value)||10),targets=rand(pool);
+ slapSession={pool,targets:Array.from({length:len},(_,i)=>targets[i%targets.length]),index:0,hits:0,streak:0,best:0,score:0,resolved:false,earned:0};
+ el('slapSetup').classList.add('hidden');el('slapEnd').classList.add('hidden');el('slapPlay').classList.remove('hidden');renderSlap();}
+function renderSlap(){stopSlapTimer();const s=slapSession;if(!s)return;if(s.index>=s.targets.length){finishSlap();return;}
+ s.resolved=false;const word=s.targets[s.index],options=pairFor(word,s.pool);
+ el('slapStep').textContent=`第 ${s.index+1} / ${s.targets.length} 張`;el('slapBar').style.width=`${s.index/s.targets.length*100}%`;
+ el('slapScore').textContent=`⭐ 得分 ${s.score}`;el('slapStreak').textContent=`🔥 連擊 ${s.streak}`;el('slapHits').textContent=`✅ 拍對 ${s.hits}`;
+ ['slapLeft','slapRight'].forEach((id,i)=>{const b=el(id);b.dataset.en=options[i].en;b.className='slap-card';b.disabled=false;b.replaceChildren(document.createTextNode(options[i].en));const tiny=document.createElement('small');tiny.textContent='👆 聽音後拍我！';b.append(tiny);});
+ el('slapFeedback').className='slap-feedback';el('slapFeedback').textContent='🔊 動物老師唸哪個英文，就拍哪一張！';el('slapNext').disabled=true;el('slapPrompt').textContent='👂 Listen carefully! 準備拍卡！';
+ english(word.en,.78);
+}
+function slapPlaySound(){if(slapSession&&slapSession.targets[slapSession.index])english(slapSession.targets[slapSession.index].en,.75);}
+function slapTap(btn){const s=slapSession;if(!s||s.resolved||s.index>=s.targets.length)return;
+ s.resolved=true;stopSlapTimer();const target=s.targets[s.index],okay=btn.dataset.en===target.en;
+ if(okay){s.hits++;s.streak++;s.best=Math.max(s.best,s.streak);const points=10+(s.streak>1?Math.min(s.streak,5)*2:0);s.score+=points;const stars=s.streak>0&&s.streak%3===0?2:1;s.earned+=stars;core.recordSlap(true,stars,s.streak);}
+ else{s.streak=0;core.recordSlap(false,0,0);}
+ ['slapLeft','slapRight'].forEach(id=>{const b=el(id);b.disabled=true;if(b.dataset.en===target.en)b.classList.add('correct');else if(b===btn)b.classList.add('wrong');});
+ el('slapScore').textContent=`⭐ 得分 ${s.score}`;el('slapStreak').textContent=`🔥 連擊 ${s.streak}`;el('slapHits').textContent=`✅ 拍對 ${s.hits}`;
+ el('slapFeedback').className='slap-feedback '+(okay?'pass':'try');
+ el('slapFeedback').textContent=okay?`✅ 拍中了！${target.en} = ${target.zh}，連擊 ${s.streak} 次！`:`🔁 這次沒拍對，正確的是 ${target.en}（${target.zh}）。再聽一遍，下一張繼續！`;
+ el('slapNext').disabled=false;el('slapNext').textContent=s.index+1>=s.targets.length?'🏆 看成績 →':'下一張 →';
+ if(!okay)english(target.en,.67);
+ // Intentionally advance on a button press: speech playback needs an actual tap on some mobile browsers.
+}
+function nextSlap(){const s=slapSession;if(!s||!s.resolved)return;s.index++;renderSlap();}
+function finishSlap(){stopSlapTimer();const s=slapSession;if(!s)return;core.finishSlap();
+ el('slapPlay').classList.add('hidden');el('slapEnd').classList.remove('hidden');el('slapBar').style.width='100%';
+ el('slapEndResult').textContent=`${s.hits} / ${s.targets.length} 張拍對！`;
+ el('slapEndNote').textContent=`這次得分 ${s.score} 分，最高連擊 ${s.best} 次，獲得 ${s.earned} 顆星！喜歡的話還可以換主題再挑戰。`;
+}
+function leaveSlap(){stopSlapTimer();slapSession=null;try{window.speechSynthesis?.cancel()}catch(e){}core.showScreen('home');}
+on('launchSlap','click',openSlap);on('slapBack','click',leaveSlap);on('slapStart','click',startSlap);
+on('slapLeft','click',()=>slapTap(el('slapLeft')));on('slapRight','click',()=>slapTap(el('slapRight')));
+on('slapReplay','click',slapPlaySound);on('slapNext','click',nextSlap);
+on('slapAgain','click',startSlap);on('slapEndHome','click',leaveSlap);
+document.addEventListener('cythina:screen',evt=>{const id=evt.detail?.id;if(id!=='oral')stopListening();if(id!=='slap')stopSlapTimer();});
 })();
 
 </script>
